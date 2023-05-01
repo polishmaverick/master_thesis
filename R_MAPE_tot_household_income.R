@@ -3,22 +3,34 @@
 ######MCAR######
 imp_median_data_MCAR <- readRDS("imp_median_data_MCAR.rds")
 
+mape_median_MCAR
+
 ######MAR######
 imp_median_data_MAR <- readRDS("imp_median_data_MAR.rds")
 
+mape_median_MAR
+
 ######MNAR######
 imp_median_data_MNAR <- readRDS("imp_median_data_MNAR.rds")
+
+mape_median_MNAR
 
 #####Hot-deck imputation#####
 
 ######MCAR######
 imp_hot_deck_data_MCAR <- readRDS("imp_hot_deck_data_MCAR.rds")
 
+mape_hotdeck_MCAR
+
 ######MAR######
 imp_hot_deck_data_MAR <- readRDS("imp_hot_deck_data_MAR.rds")
 
+mape_hotdeck_MAR
+
 ######MNAR######
 imp_hot_deck_data_MNAR <- readRDS("imp_hot_deck_data_MNAR.rds")
+
+mape_hotdeck_MNAR
 
 #####kNN imputation#####
 
@@ -39,8 +51,8 @@ for (i in 1:14) {
   result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
 }
 
-mape_kNN_data_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
-mape_kNN_data_MCAR
+mape_kNN_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_kNN_MCAR
 
 ######MAR######
 imp_kNN_data_MAR <- readRDS("imp_kNN_data_MAR.rds")
@@ -59,8 +71,8 @@ for (i in 1:14) {
   result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
 }
 
-mape_kNN_data_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
-mape_kNN_data_MAR
+mape_kNN_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_kNN_MAR
 
 ######MNAR######
 imp_kNN_data_MNAR <- readRDS("imp_kNN_data_MNAR.rds")
@@ -79,59 +91,56 @@ for (i in 1:14) {
   result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
 }
 
-mape_kNN_data_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
-mape_kNN_data_MNAR
+mape_kNN_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_kNN_MNAR
 
 #####Regression imputation#####
 
 ######MCAR######
 imp_reg_data_MCAR <- readRDS("imp_reg_data_MCAR.rds")
 
+mape_regression_MCAR
+
 ######MAR######
 imp_reg_data_MAR <- readRDS("imp_reg_data_MAR.rds")
 
+mape_regression_MAR
+
 ######MNAR######
 imp_reg_data_MNAR <- readRDS("imp_reg_data_MNAR.rds")
+
+mape_regression_MNAR
 
 #####Random forest imputation#####
 
 ######MCAR######
 imp_rf_data_MCAR <- readRDS("imp_rf_data_MCAR.rds")
 
+mape_randomforest_MCAR
+
 ######MAR######
 imp_rf_data_MAR <- readRDS("imp_rf_data_MAR.rds")
 
+mape_randomforest_MAR
+
 ######MNAR######
 imp_rf_data_MNAR <- readRDS("imp_rf_data_MNAR.rds")
+
+mape_randomforest_MNAR
 
 #####Multiple imputation#####
 
 ######MCAR######
 imp_mul_data_MCAR <- readRDS("imp_mul_data_MCAR.rds")
 
+mape_multiple_MCAR
+
 ######MAR######
 imp_mul_data_MAR <- readRDS("imp_mul_data_MAR.rds")
+
+mape_multiple_MAR
 
 ######MNAR######
 imp_mul_data_MNAR <- readRDS("imp_mul_data_MNAR.rds")
 
-#####xxx#####
-
-mape_median_MCAR
-mape_median_MAR
-mape_median_MNAR
-mape_hot_deck_MCAR
-mape_hot_deck_MAR
-mape_hot_deck_MNAR
-mape_kNN_MCAR
-mape_kNN_MAR
-mape_kNN_MNAR
-mape_reg_MCAR
-mape_reg_MAR
-mape_reg_MNAR
-mape_rf_MCAR
-mape_rf_MAR
-mape_rf_MNAR
-mape_mul_MCAR
-mape_mul_MAR
-mape_mul_MNAR
+mape_multiple_MNAR

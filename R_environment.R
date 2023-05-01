@@ -1,151 +1,40 @@
 #####Packages#####
 
 #Installing and loading packages
-if(require("Amelia")) {
-  library("Amelia")
-} else {
-  install.packages("Amelia")
-  library("Amelia")
+packages <-
+  c(
+    "Amelia",
+    "boot",
+    "coin",
+    "corrplot",
+    "dplyr",
+    "ggplot2",
+    "lattice",
+    "Metrics",
+    "mi",
+    "mice",
+    "missForest",
+    "missMethods",
+    "mltools",
+    "perm",
+    "RColorBrewer",
+    "readxl",
+    "RVAideMemoire",
+    "sampling",
+    "simputation",
+    "sqldf",
+    "tidyverse",
+    "VIM"
+  )
+
+for (package_name in packages) {
+  if (!require(package_name, character.only = TRUE)) {
+    install.packages(package_name)
+    library(package_name, character.only = TRUE)
+  }
 }
 
-if(require("boot")) {
-  library("boot")
-} else {
-  install.packages("boot")
-  library("boot")
-}
-
-if(require("coin")) {
-  library("coin")
-} else {
-  install.packages("coin")
-  library("coin")
-}
-
-if(require("dplyr")) {
-  library("dplyr")
-} else {
-  install.packages("dplyr")
-  library("dplyr")
-}
-
-if(require("ggplot2")) {
-  library("ggplot2")
-} else {
-  install.packages("ggplot2")
-  library("ggplot2")
-}
-
-if(require("lattice")) {
-  library("lattice")
-} else {
-  install.packages("lattice")
-  library("lattice")
-
-if(require("Metrics")) {
-  library("Metrics")
-} else {
-  install.packages("Metrics")
-  library("Metrics")
-}
-
-if(require("mi")) {
-  library("mi")
-} else {
-  install.packages("mi")
-  library("mi")
-}
-
-if(require("mice")) {
-  library("mice")
-} else {
-  install.packages("mice")
-  library("mice")
-}
-
-if(require("missForest")) {
-  library("missForest")
-} else {
-  install.packages("missForest")
-  library("missForest")
-}
-
-if(require("missMethods")) {
-  library("missMethods")
-} else {
-  install.packages("missMethods")
-  library("missMethods")
-}
-
-if(require("mltools")) {
-  library("mltools")
-} else {
-  install.packages("mltools")
-  library("mltools")
-}
-
-if(require("perm")) {
-  library("perm")
-} else {
-  install.packages("perm")
-  library("perm")
-}
-
-if(require("RColorBrewer")) {
-  library("RColorBrewer")
-} else {
-  install.packages("RColorBrewer")
-  library("RColorBrewer")
-}
-
-if(require("readxl")) {
-  library("readxl")
-} else {
-  install.packages("readxl")
-  library("readxl")
-}
-
-if(require("RVAideMemoire")) {
-  library("RVAideMemoire")
-} else {
-  install.packages("RVAideMemoire")
-  library("RVAideMemoire")
-}
-
-if(require("sampling")) {
-  library("sampling")
-} else {
-  install.packages("sampling")
-  library("sampling")
-}
-
-if(require("simputation")) {
-  library("simputation")
-} else {
-  install.packages("simputation")
-  library("simputation")
-}
-
-if(require("sqldf")) {
-  library("sqldf")
-} else {
-  install.packages("sqldf")
-  library("sqldf")
-}
-
-if(require("tidyverse")) {
-  library("tidyverse")
-} else {
-  install.packages("tidyverse")
-  library("tidyverse")
-}
-
-if(require("VIM")) {
-  library("VIM")
-} else {
-  install.packages("VIM")
-  library("VIM")
-}
+rm(package_name, packages)
 
 #####Data#####
 
