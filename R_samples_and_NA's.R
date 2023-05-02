@@ -51,6 +51,8 @@ for (p in prop) {
   data_MCAR_list[[as.character(p * 100)]] <- data_MCAR
 }
 
+saveRDS(data_MCAR_list, "data_MCAR_list.rds")
+
 #####Producing NA's - type: MAR#####
 
 #Set.seed for the same results
@@ -71,11 +73,13 @@ for (p in prop) {
                                       p  = p,
                                       cols_mis = cols_mis,
                                       cols_ctrl = cols_ctrl,
-                                      x = 1)
+                                      x = 0.65)
     return(data_missing)
   })
   data_MAR_list[[as.character(p * 100)]] <- data_MAR
 }
+
+saveRDS(data_MAR_list, "data_MAR_list.rds")
 
 #####Producing NA's - type: MNAR#####
 
@@ -97,8 +101,10 @@ for (p in prop) {
                                        p  = p,
                                        cols_mis = cols_mis,
                                        cols_ctrl = cols_ctrl,
-                                       x = 1)
+                                       x = 0.65)
     return(data_missing)
   })
   data_MNAR_list[[as.character(p * 100)]] <- data_MNAR
 }
+
+saveRDS(data_MNAR_list, "data_MNAR_list.rds")
