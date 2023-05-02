@@ -1,31 +1,29 @@
 #####Packages#####
 
 #Installing and loading packages
-packages <-
-  c(
-    "Amelia",
-    "boot",
-    "coin",
-    "corrplot",
-    "dplyr",
-    "ggplot2",
-    "lattice",
-    "Metrics",
-    "mi",
-    "mice",
-    "missForest",
-    "missMethods",
-    "mltools",
-    "perm",
-    "RColorBrewer",
-    "readxl",
-    "RVAideMemoire",
-    "sampling",
-    "simputation",
-    "sqldf",
-    "tidyverse",
-    "VIM"
-  )
+packages <- c(
+  "Amelia",
+  "boot",
+  "coin",
+  "corrplot",
+  "dplyr",
+  "ggplot2",
+  "lattice",
+  "Metrics",
+  "mi",
+  "mice",
+  "missForest",
+  "missMethods",
+  "mltools",
+  "perm",
+  "RColorBrewer",
+  "readxl",
+  "RVAideMemoire",
+  "sampling",
+  "simputation",
+  "sqldf",
+  "tidyverse",
+  "VIM")
 
 for (package_name in packages) {
   if (!require(package_name, character.only = TRUE)) {
