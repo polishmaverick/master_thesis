@@ -39,6 +39,9 @@ data_samples_MCAR <- lapply(1:n, function(i) {
   return(data_sample)
 })
 
+#Saving .rds file
+#saveRDS(data_samples_MCAR, "data_samples_MCAR.rds")
+
 #Generating datasets with missing values type MCAR
 for (p in prop) {
   data_MCAR <- lapply(data_samples_MCAR, function(data_samples_MCAR)
@@ -51,7 +54,8 @@ for (p in prop) {
   data_MCAR_list[[as.character(p * 100)]] <- data_MCAR
 }
 
-saveRDS(data_MCAR_list, "data_MCAR_list.rds")
+#Saving .rds file
+#saveRDS(data_MCAR_list, "data_MCAR_list.rds")
 
 #####Producing NA's - type: MAR#####
 
@@ -64,6 +68,9 @@ data_samples_MAR <- lapply(1:n, function(i) {
   data_sample <- data[data_s, ]
   return(data_sample)
 })
+
+#Saving .rds file
+#saveRDS(data_samples_MAR, "data_samples_MAR.rds")
 
 #Loop - MAR
 for (p in prop) {
@@ -79,7 +86,8 @@ for (p in prop) {
   data_MAR_list[[as.character(p * 100)]] <- data_MAR
 }
 
-saveRDS(data_MAR_list, "data_MAR_list.rds")
+#Saving .rds file
+#saveRDS(data_MAR_list, "data_MAR_list.rds")
 
 #####Producing NA's - type: MNAR#####
 
@@ -92,6 +100,9 @@ data_samples_MNAR <- lapply(1:n, function(i) {
   data_sample <- data[data_s, ]
   return(data_sample)
 })
+
+#Saving .rds file
+#saveRDS(data_samples_MNAR, "data_samples_MNAR.rds")
 
 #Loop - MNAR
 for (p in prop) {
@@ -107,4 +118,5 @@ for (p in prop) {
   data_MNAR_list[[as.character(p * 100)]] <- data_MNAR
 }
 
-saveRDS(data_MNAR_list, "data_MNAR_list.rds")
+#Saving .rds file
+#saveRDS(data_MNAR_list, "data_MNAR_list.rds")

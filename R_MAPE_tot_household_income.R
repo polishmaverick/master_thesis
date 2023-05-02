@@ -20,7 +20,8 @@ for (i in 1:14) {
 mape_median_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_median_MCAR
 
-saveRDS(mape_median_MCAR, "mape_median_MCAR.rds")
+#Saving .rds file
+#saveRDS(mape_median_MCAR, "mape_median_MCAR.rds")
 
 ######MAR######
 imp_median_data_MAR <- readRDS("imp_median_data_MAR.rds")
@@ -42,7 +43,8 @@ for (i in 1:14) {
 mape_median_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_median_MAR
 
-saveRDS(mape_median_MAR, "mape_median_MAR.rds")
+#Saving .rds file
+#saveRDS(mape_median_MAR, "mape_median_MAR.rds")
 
 ######MNAR######
 imp_median_data_MNAR <- readRDS("imp_median_data_MNAR.rds")
@@ -64,7 +66,8 @@ for (i in 1:14) {
 mape_median_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_median_MNAR
 
-saveRDS(mape_median_MNAR, "mape_median_MNAR.rds")
+#Saving .rds file
+#saveRDS(mape_median_MNAR, "mape_median_MNAR.rds")
 
 #####Hot-deck imputation#####
 
@@ -88,7 +91,8 @@ for (i in 1:14) {
 mape_hotdeck_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_hotdeck_MCAR
 
-saveRDS(mape_hotdeck_MCAR, "mape_hotdeck_MCAR.rds")
+#Saving .rds file
+#saveRDS(mape_hotdeck_MCAR, "mape_hotdeck_MCAR.rds")
 
 ######MAR######
 imp_hot_deck_data_MAR <- readRDS("imp_hot_deck_data_MAR.rds")
@@ -110,7 +114,8 @@ for (i in 1:14) {
 mape_hotdeck_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_hotdeck_MAR
 
-saveRDS(mape_hotdeck_MAR, "mape_hotdeck_MAR.rds")
+#Saving .rds file
+#saveRDS(mape_hotdeck_MAR, "mape_hotdeck_MAR.rds")
 
 ######MNAR######
 imp_hot_deck_data_MNAR <- readRDS("imp_hot_deck_data_MNAR.rds")
@@ -132,7 +137,8 @@ for (i in 1:14) {
 mape_hotdeck_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_hotdeck_MNAR
 
-saveRDS(mape_hotdeck_MNAR, "mape_hotdeck_MNAR.rds")
+#Saving .rds file
+#saveRDS(mape_hotdeck_MNAR, "mape_hotdeck_MNAR.rds")
 
 #####kNN imputation#####
 
@@ -156,7 +162,8 @@ for (i in 1:14) {
 mape_kNN_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_kNN_MCAR
 
-saveRDS(mape_kNN_MCAR, "mape_kNN_MCAR.rds")
+#Saving .rds file
+#saveRDS(mape_kNN_MCAR, "mape_kNN_MCAR.rds")
 
 ######MAR######
 imp_kNN_data_MAR <- readRDS("imp_kNN_data_MAR.rds")
@@ -178,6 +185,7 @@ for (i in 1:14) {
 mape_kNN_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_kNN_MAR
 
+#Saving .rds file
 saveRDS(mape_kNN_MAR, "mape_kNN_MAR.rds")
 
 ######MNAR######
@@ -200,6 +208,7 @@ for (i in 1:14) {
 mape_kNN_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_kNN_MNAR
 
+#Saving .rds file
 saveRDS(mape_kNN_MNAR, "mape_kNN_MNAR.rds")
 
 #####Regression imputation#####
@@ -224,7 +233,8 @@ for (i in 1:14) {
 mape_reg_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_reg_MNAR
 
-saveRDS(mape_reg_MNAR, "mape_reg_MNAR.rds")
+#Saving .rds file
+#saveRDS(mape_reg_MNAR, "mape_reg_MNAR.rds")
 
 ######MAR######
 imp_lm_data_MAR <- readRDS("imp_lm_data_MAR.rds")
@@ -246,7 +256,8 @@ for (i in 1:14) {
 mape_reg_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_reg_MAR
 
-saveRDS(mape_reg_MAR, "mape_reg_MAR.rds")
+#Saving .rds file
+#saveRDS(mape_reg_MAR, "mape_reg_MAR.rds")
 
 ######MNAR######
 imp_lm_data_MNAR <- readRDS("imp_lm_data_MNAR.rds")
@@ -268,7 +279,8 @@ for (i in 1:14) {
 mape_reg_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
 mape_reg_MNAR
 
-saveRDS(mape_reg_MNAR, "mape_reg_MNAR.rds")
+#Saving .rds file
+#saveRDS(mape_reg_MNAR, "mape_reg_MNAR.rds")
 
 #####Random forest imputation#####
 
