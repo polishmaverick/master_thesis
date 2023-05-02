@@ -99,3 +99,8 @@ data$house_num_computer <- as.numeric(data$house_num_computer)
 data$house_num_oven <- as.numeric(data$house_num_oven)
 data$house_num_boat <- as.numeric(data$house_num_boat)
 data$house_num_motorcycle_tricycle <- as.numeric(data$house_num_motorcycle_tricycle)
+
+#Loading data samples
+data_samples_MCAR <- readRDS("data_samples_MCAR.rds")
+data_samples_MAR <- readRDS("data_samples_MAR.rds")
+data_samples_MNAR <- readRDS("data_samples_MNAR.rds")

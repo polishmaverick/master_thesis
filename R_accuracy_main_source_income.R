@@ -13,8 +13,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MCAR)))
   
   for (j in seq_along(data_samples_MCAR)) {
-    actual <- data_samples_MCAR[[j]]$tot_household_income
-    predicted <- imp_hot_deck_data_MCAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MCAR[[j]]$main_source_income
+    predicted <- imp_hot_deck_data_MCAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -25,7 +25,7 @@ acc_hotdeck_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_hotdeck_MCAR
 
 #Saving .rds file
-saveRDS(acc_hotdeck_MCAR, "acc_hotdeck_MCAR.rds")
+#saveRDS(acc_hotdeck_MCAR, "acc_hotdeck_MCAR.rds")
 
 ######MAR######
 imp_hot_deck_data_MAR <- readRDS("imp_hot_deck_data_MAR.rds")
@@ -36,8 +36,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MAR)))
   
   for (j in seq_along(data_samples_MAR)) {
-    actual <- data_samples_MAR[[j]]$tot_household_income
-    predicted <- imp_hot_deck_data_MAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MAR[[j]]$main_source_income
+    predicted <- imp_hot_deck_data_MAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -48,7 +48,7 @@ acc_hotdeck_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_hotdeck_MAR
 
 #Saving .rds file
-saveRDS(acc_hotdeck_MAR, "acc_hotdeck_MAR.rds")
+#saveRDS(acc_hotdeck_MAR, "acc_hotdeck_MAR.rds")
 
 ######MNAR######
 imp_hot_deck_data_MNAR <- readRDS("imp_hot_deck_data_MNAR.rds")
@@ -59,8 +59,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$tot_household_income
-    predicted <- imp_hot_deck_data_MNAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MNAR[[j]]$main_source_income
+    predicted <- imp_hot_deck_data_MNAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -71,7 +71,7 @@ acc_hotdeck_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_hotdeck_MNAR
 
 #Saving .rds file
-saveRDS(acc_hotdeck_MNAR, "acc_hotdeck_MNAR.rds")
+#saveRDS(acc_hotdeck_MNAR, "acc_hotdeck_MNAR.rds")
 
 #####kNN imputation#####
 
@@ -84,8 +84,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MCAR)))
   
   for (j in seq_along(data_samples_MCAR)) {
-    actual <- data_samples_MCAR[[j]]$tot_household_income
-    predicted <- imp_kNN_data_MCAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MCAR[[j]]$main_source_income
+    predicted <- imp_kNN_data_MCAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -96,7 +96,7 @@ acc_kNN_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_kNN_MCAR
 
 #Saving .rds file
-saveRDS(acc_kNN_MCAR, "acc_kNN_MCAR.rds")
+#saveRDS(acc_kNN_MCAR, "acc_kNN_MCAR.rds")
 
 ######MAR######
 imp_kNN_data_MAR <- readRDS("imp_kNN_data_MAR.rds")
@@ -107,8 +107,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MAR)))
   
   for (j in seq_along(data_samples_MAR)) {
-    actual <- data_samples_MAR[[j]]$tot_household_income
-    predicted <- imp_kNN_data_MAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MAR[[j]]$main_source_income
+    predicted <- imp_kNN_data_MAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -130,8 +130,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$tot_household_income
-    predicted <- imp_kNN_data_MNAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MNAR[[j]]$main_source_income
+    predicted <- imp_kNN_data_MNAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -155,8 +155,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$tot_household_income
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MNAR[[j]]$main_source_income
+    predicted <- imp_lm_data_MNAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -178,8 +178,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MAR)))
   
   for (j in seq_along(data_samples_MAR)) {
-    actual <- data_samples_MAR[[j]]$tot_household_income
-    predicted <- imp_lm_data_MAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MAR[[j]]$main_source_income
+    predicted <- imp_lm_data_MAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -201,8 +201,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$tot_household_income
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$tot_household_income
+    actual <- data_samples_MNAR[[j]]$main_source_income
+    predicted <- imp_lm_data_MNAR[[i]][[j]]$main_source_income
     res_i[j] <- accuracy(actual, predicted)
   }
   
