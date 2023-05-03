@@ -154,7 +154,7 @@ result <- data.frame(mean_acc = numeric(14))
 for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MCAR)))
   
-  for (j in seq_along(data_samples_MNAR)) {
+  for (j in seq_along(data_samples_MCAR)) {
     actual <- data_samples_MCAR[[j]]$household_head_job
     predicted <- imp_reg_data_MCAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
@@ -167,7 +167,7 @@ acc_reg_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_reg_MCAR
 
 #Saving .rds file
-saveRDS(acc_reg_MCAR, "acc_reg_MCAR.rds")
+#saveRDS(acc_reg_MCAR, "acc_reg_MCAR.rds")
 
 ######MAR######
 imp_reg_data_MAR <- readRDS("imp_reg_data_MAR.rds")
@@ -190,7 +190,7 @@ acc_reg_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_reg_MAR
 
 #Saving .rds file
-saveRDS(acc_reg_MAR, "acc_reg_MAR.rds")
+#saveRDS(acc_reg_MAR, "acc_reg_MAR.rds")
 
 ######MNAR######
 imp_reg_data_MNAR <- readRDS("imp_reg_data_MNAR.rds")
@@ -213,7 +213,7 @@ acc_reg_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_reg_MNAR
 
 #Saving .rds file
-saveRDS(acc_reg_MNAR, "acc_reg_MNAR.rds")
+#saveRDS(acc_reg_MNAR, "acc_reg_MNAR.rds")
 
 #####Random forest imputation#####
 

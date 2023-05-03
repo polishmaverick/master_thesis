@@ -214,30 +214,30 @@ mape_kNN_MNAR
 #####Regression imputation#####
 
 ######MCAR######
-imp_lm_data_MNAR <- readRDS("imp_lm_data_MNAR.rds")
+imp_reg_data_MCAR <- readRDS("imp_reg_data_MCAR.rds")
 
 result <- data.frame(mean_MAPE = numeric(14))
 
 for (i in 1:14) {
-  res_i <- numeric(length(seq_along(data_samples_MNAR)))
+  res_i <- numeric(length(seq_along(data_samples_MCAR)))
   
-  for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$tot_household_income
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$tot_household_income
+  for (j in seq_along(data_samples_MCAR)) {
+    actual <- data_samples_MCAR[[j]]$tot_household_income
+    predicted <- imp_reg_data_MCAR[[i]][[j]]$tot_household_income
     res_i[j] <- mape(actual, predicted)
   }
   
   result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
 }
 
-mape_reg_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
-mape_reg_MNAR
+mape_reg_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_reg_MCAR
 
 #Saving .rds file
-#saveRDS(mape_reg_MNAR, "mape_reg_MNAR.rds")
+#saveRDS(mape_reg_MCAR, "mape_reg_MCAR.rds")
 
 ######MAR######
-imp_lm_data_MAR <- readRDS("imp_lm_data_MAR.rds")
+imp_reg_data_MAR <- readRDS("imp_reg_data_MAR.rds")
 
 result <- data.frame(mean_MAPE = numeric(14))
 
@@ -246,7 +246,7 @@ for (i in 1:14) {
   
   for (j in seq_along(data_samples_MAR)) {
     actual <- data_samples_MAR[[j]]$tot_household_income
-    predicted <- imp_lm_data_MAR[[i]][[j]]$tot_household_income
+    predicted <- imp_reg_data_MAR[[i]][[j]]$tot_household_income
     res_i[j] <- mape(actual, predicted)
   }
   
@@ -260,7 +260,7 @@ mape_reg_MAR
 #saveRDS(mape_reg_MAR, "mape_reg_MAR.rds")
 
 ######MNAR######
-imp_lm_data_MNAR <- readRDS("imp_lm_data_MNAR.rds")
+imp_reg_data_MNAR <- readRDS("imp_reg_data_MNAR.rds")
 
 result <- data.frame(mean_MAPE = numeric(14))
 
@@ -269,7 +269,7 @@ for (i in 1:14) {
   
   for (j in seq_along(data_samples_MNAR)) {
     actual <- data_samples_MNAR[[j]]$tot_household_income
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$tot_household_income
+    predicted <- imp_reg_data_MNAR[[i]][[j]]$tot_household_income
     res_i[j] <- mape(actual, predicted)
   }
   
