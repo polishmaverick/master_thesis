@@ -13,8 +13,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MCAR)))
   
   for (j in seq_along(data_samples_MCAR)) {
-    actual <- data_samples_MCAR[[j]]$main_source_income
-    predicted <- imp_hot_deck_data_MCAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MCAR[[j]]$household_head_job
+    predicted <- imp_hot_deck_data_MCAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -36,8 +36,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MAR)))
   
   for (j in seq_along(data_samples_MAR)) {
-    actual <- data_samples_MAR[[j]]$main_source_income
-    predicted <- imp_hot_deck_data_MAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MAR[[j]]$household_head_job
+    predicted <- imp_hot_deck_data_MAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -59,8 +59,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$main_source_income
-    predicted <- imp_hot_deck_data_MNAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MNAR[[j]]$household_head_job
+    predicted <- imp_hot_deck_data_MNAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -84,8 +84,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MCAR)))
   
   for (j in seq_along(data_samples_MCAR)) {
-    actual <- data_samples_MCAR[[j]]$main_source_income
-    predicted <- imp_kNN_data_MCAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MCAR[[j]]$household_head_job
+    predicted <- imp_kNN_data_MCAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -107,8 +107,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MAR)))
   
   for (j in seq_along(data_samples_MAR)) {
-    actual <- data_samples_MAR[[j]]$main_source_income
-    predicted <- imp_kNN_data_MAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MAR[[j]]$household_head_job
+    predicted <- imp_kNN_data_MAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -130,8 +130,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$main_source_income
-    predicted <- imp_kNN_data_MNAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MNAR[[j]]$household_head_job
+    predicted <- imp_kNN_data_MNAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -155,8 +155,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$main_source_income
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MNAR[[j]]$household_head_job
+    predicted <- imp_lm_data_MNAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -178,8 +178,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MAR)))
   
   for (j in seq_along(data_samples_MAR)) {
-    actual <- data_samples_MAR[[j]]$main_source_income
-    predicted <- imp_lm_data_MAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MAR[[j]]$household_head_job
+    predicted <- imp_lm_data_MAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -201,8 +201,8 @@ for (i in 1:14) {
   res_i <- numeric(length(seq_along(data_samples_MNAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$main_source_income
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$main_source_income
+    actual <- data_samples_MNAR[[j]]$household_head_job
+    predicted <- imp_lm_data_MNAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   

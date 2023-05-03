@@ -119,7 +119,7 @@ acc_kNN_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_kNN_MAR
 
 #Saving .rds file
-saveRDS(acc_kNN_MAR, "acc_kNN_MAR.rds")
+#saveRDS(acc_kNN_MAR, "acc_kNN_MAR.rds")
 
 ######MNAR######
 imp_kNN_data_MNAR <- readRDS("imp_kNN_data_MNAR.rds")
@@ -142,7 +142,7 @@ acc_kNN_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_kNN_MNAR
 
 #Saving .rds file
-saveRDS(acc_kNN_MNAR, "acc_kNN_MNAR.rds")
+#saveRDS(acc_kNN_MNAR, "acc_kNN_MNAR.rds")
 
 #####Regression imputation#####
 
