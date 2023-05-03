@@ -320,7 +320,6 @@ head(results_AIC[order(results_AIC)], 5)
 best_AIC <- min(results_AIC)
 results_AIC[which(results_AIC == best_AIC)]
 
-
 ######MCAR######
 set.seed(123)
 imp_lm_data_MCAR <- list()
@@ -525,6 +524,96 @@ head(results_AIC[order(results_AIC)], 5)
 best_AIC <- min(results_AIC)
 results_AIC[which(results_AIC == best_AIC)]
 
+######MCAR######
+set.seed(123)
+imp_multinom_data_MCAR <- list()
+
+system.time(for (i in seq_along(data_MCAR_list)) {
+  temp_list <- list()
+  for (j in seq_len(length(data_MCAR_list[[i]]))) {
+    data <- data_MCAR_list[[i]][[j]]
+    
+    independent_vars <- c("meat_exp", "tot_income_enterpreneurial_act", "num_family_member_employed")
+    
+    formula <- as.formula(paste("main_source_income ~", paste(independent_vars, collapse = " + ")))
+    
+    data_subset <- data[complete.cases(data[independent_vars]), ]
+    
+    multinom_model <- nnet::multinom(formula, data = data_subset, MaxNWts = 1000)
+    
+    missing_indices <- is.na(data$main_source_income)
+    predicted_values <- predict(multinom_model, newdata = data[missing_indices, ], type = "class")
+    
+    data$main_source_income[missing_indices] <- predicted_values
+    
+    temp_list[[j]] <- data
+  }
+  imp_multinom_data_MCAR[[i]] <- temp_list
+})
+
+#Saving .rds file
+#saveRDS(imp_multinom_data_MCAR, "imp_multinom_data_MCAR.rds")
+
+######MAR######
+set.seed(123)
+imp_multinom_data_MAR <- list()
+
+system.time(for (i in seq_along(data_MAR_list)) {
+  temp_list <- list()
+  for (j in seq_len(length(data_MAR_list[[i]]))) {
+    data <- data_MAR_list[[i]][[j]]
+    
+    independent_vars <- c("meat_exp", "tot_income_enterpreneurial_act", "num_family_member_employed")
+    
+    formula <- as.formula(paste("main_source_income ~", paste(independent_vars, collapse = " + ")))
+    
+    data_subset <- data[complete.cases(data[independent_vars]), ]
+    
+    multinom_model <- nnet::multinom(formula, data = data_subset, MaxNWts = 1000)
+    
+    missing_indices <- is.na(data$main_source_income)
+    predicted_values <- predict(multinom_model, newdata = data[missing_indices, ], type = "class")
+    
+    data$main_source_income[missing_indices] <- predicted_values
+    
+    temp_list[[j]] <- data
+  }
+  imp_multinom_data_MAR[[i]] <- temp_list
+})
+
+#Saving .rds file
+#saveRDS(imp_multinom_data_MAR, "imp_multinom_data_MAR.rds")
+
+######MNAR######
+set.seed(123)
+imp_multinom_data_MNAR <- list()
+
+system.time(for (i in seq_along(data_MNAR_list)) {
+  temp_list <- list()
+  for (j in seq_len(length(data_MNAR_list[[i]]))) {
+    data <- data_MNAR_list[[i]][[j]]
+    
+    independent_vars <- c("meat_exp", "tot_income_enterpreneurial_act", "num_family_member_employed")
+    
+    formula <- as.formula(paste("main_source_income ~", paste(independent_vars, collapse = " + ")))
+    
+    data_subset <- data[complete.cases(data[independent_vars]), ]
+    
+    multinom_model <- nnet::multinom(formula, data = data_subset, MaxNWts = 1000)
+    
+    missing_indices <- is.na(data$main_source_income)
+    predicted_values <- predict(multinom_model, newdata = data[missing_indices, ], type = "class")
+    
+    data$main_source_income[missing_indices] <- predicted_values
+    
+    temp_list[[j]] <- data
+  }
+  imp_multinom_data_MNAR[[i]] <- temp_list
+})
+
+#Saving .rds file
+#saveRDS(imp_multinom_data_MNAR, "imp_multinom_data_MNAR.rds")
+
 ######Choosing best ordinal logistic regression model - var: house_type_wall######
 #Defining dependent variable
 dependent_var <- t$house_type_wall
@@ -552,6 +641,96 @@ for (i in 1:3) {
 head(results_AIC[order(results_AIC)], 5)
 best_AIC <- min(results_AIC)
 results_AIC[which(results_AIC == best_AIC)]
+
+######MCAR######
+set.seed(123)
+imp_polr_data_MCAR <- list()
+
+system.time(for (i in seq_along(data_MCAR_list)) {
+  temp_list <- list()
+  for (j in seq_len(length(data_MCAR_list[[i]]))) {
+    data <- data_MCAR_list[[i]][[j]]
+    
+    independent_vars <- c("meat_exp", "num_family_member", "house_age")
+    
+    formula <- as.formula(paste("house_type_wall ~", paste(independent_vars, collapse = " + ")))
+    
+    data_subset <- data[complete.cases(data[independent_vars]), ]
+    
+    polr_model <- polr(formula, data = data_subset, Hess = TRUE)
+    
+    missing_indices <- is.na(data$house_type_wall)
+    predicted_values <- predict(polr_model, newdata = data[missing_indices, ], type = "class")
+    
+    data$house_type_wall[missing_indices] <- predicted_values
+    
+    temp_list[[j]] <- data
+  }
+  imp_polr_data_MCAR[[i]] <- temp_list
+})
+
+#Saving .rds file
+saveRDS(imp_polr_data_MCAR, "imp_polr_data_MCAR.rds")
+
+######MAR######
+set.seed(123)
+imp_polr_data_MAR <- list()
+
+system.time(for (i in seq_along(data_MAR_list)) {
+  temp_list <- list()
+  for (j in seq_len(length(data_MAR_list[[i]]))) {
+    data <- data_MAR_list[[i]][[j]]
+    
+    independent_vars <- c("meat_exp", "num_family_member", "house_age")
+    
+    formula <- as.formula(paste("house_type_wall ~", paste(independent_vars, collapse = " + ")))
+    
+    data_subset <- data[complete.cases(data[independent_vars]), ]
+    
+    polr_model <- polr(formula, data = data_subset, Hess = TRUE)
+    
+    missing_indices <- is.na(data$house_type_wall)
+    predicted_values <- predict(polr_model, newdata = data[missing_indices, ], type = "class")
+    
+    data$house_type_wall[missing_indices] <- predicted_values
+    
+    temp_list[[j]] <- data
+  }
+  imp_polr_data_MAR[[i]] <- temp_list
+})
+
+#Saving .rds file
+#saveRDS(imp_polr_data_MAR, "imp_polr_data_MAR.rds")
+
+######MNAR######
+set.seed(123)
+imp_polr_data_MNAR <- list()
+
+system.time(for (i in seq_along(data_MNAR_list)) {
+  temp_list <- list()
+  for (j in seq_len(length(data_MNAR_list[[i]]))) {
+    data <- data_MNAR_list[[i]][[j]]
+    
+    independent_vars <- c("meat_exp", "num_family_member", "house_age")
+    
+    formula <- as.formula(paste("house_type_wall ~", paste(independent_vars, collapse = " + ")))
+    
+    data_subset <- data[complete.cases(data[independent_vars]), ]
+    
+    polr_model <- polr(formula, data = data_subset, Hess = TRUE)
+    
+    missing_indices <- is.na(data$house_type_wall)
+    predicted_values <- predict(polr_model, newdata = data[missing_indices, ], type = "class")
+    
+    data$house_type_wall[missing_indices] <- predicted_values
+    
+    temp_list[[j]] <- data
+  }
+  imp_polr_data_MNAR[[i]] <- temp_list
+})
+
+#Saving .rds file
+#saveRDS(imp_polr_data_MNAR, "imp_polr_data_MNAR.rds")
 
 #####Random forest imputation#####
 
