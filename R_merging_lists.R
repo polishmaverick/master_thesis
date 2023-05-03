@@ -12,15 +12,10 @@ for (i in seq_along(imp_lm_data_MCAR)) {
   imp_reg_data_MCAR[[i]] <- list()
   
   for (j in seq_along(imp_lm_data_MCAR[[i]])) {
-    lm_col <- imp_lm_data_MCAR[[i]][[j]]$tot_household_income
-    glm_col <- imp_glm_data_MCAR[[i]][[j]]$household_head_job
-    multinom_col <- imp_multinom_data_MCAR[[i]][[j]]$main_source_income
-    polr_col <- imp_polr_data_MCAR[[i]][[j]]$house_type_wall
-    
-    reg_df <- data.frame(tot_household_income = lm_col,
-                         household_head_job = glm_col,
-                         main_source_income = multinom_col,
-                         house_type_wall = polr_col)
+    reg_df <- imp_lm_data_MCAR[[i]][[j]]
+    reg_df$household_head_job <- imp_glm_data_MCAR[[i]][[j]]$household_head_job
+    reg_df$main_source_income <- imp_multinom_data_MCAR[[i]][[j]]$main_source_income
+    reg_df$house_type_wall <- imp_polr_data_MCAR[[i]][[j]]$house_type_wall
     
     imp_reg_data_MCAR[[i]][[j]] <- reg_df
   }
@@ -38,6 +33,9 @@ if (table_result == 2077 && summary_result1 == 2077 && summary_result2 == 2077 &
   cat("Validation failed.")
 }
 
+#Saving .rds file
+#saveRDS(imp_reg_data_MCAR, "imp_reg_data_MCAR.rds")
+
 #MAR
 #Importing datasets
 imp_lm_data_MAR <- readRDS("C:/Dane/Studia/S II/Praca magisterska/R/datasets after imputation/imp_lm_data_MAR.rds")
@@ -52,15 +50,10 @@ for (i in seq_along(imp_lm_data_MAR)) {
   imp_reg_data_MAR[[i]] <- list()
   
   for (j in seq_along(imp_lm_data_MAR[[i]])) {
-    lm_col <- imp_lm_data_MAR[[i]][[j]]$tot_household_income
-    glm_col <- imp_glm_data_MAR[[i]][[j]]$household_head_job
-    multinom_col <- imp_multinom_data_MAR[[i]][[j]]$main_source_income
-    polr_col <- imp_polr_data_MAR[[i]][[j]]$house_type_wall
-    
-    reg_df <- data.frame(tot_household_income = lm_col,
-                         household_head_job = glm_col,
-                         main_source_income = multinom_col,
-                         house_type_wall = polr_col)
+    reg_df <- imp_lm_data_MAR[[i]][[j]]
+    reg_df$household_head_job <- imp_glm_data_MAR[[i]][[j]]$household_head_job
+    reg_df$main_source_income <- imp_multinom_data_MAR[[i]][[j]]$main_source_income
+    reg_df$house_type_wall <- imp_polr_data_MAR[[i]][[j]]$house_type_wall
     
     imp_reg_data_MAR[[i]][[j]] <- reg_df
   }
@@ -78,6 +71,9 @@ if (table_result == 2077 && summary_result1 == 2077 && summary_result2 == 2077 &
   cat("Validation failed.")
 }
 
+#Saving .rds file
+#saveRDS(imp_reg_data_MAR, "imp_reg_data_MAR.rds")
+
 #MNAR
 #Importing datasets
 imp_lm_data_MNAR <- readRDS("C:/Dane/Studia/S II/Praca magisterska/R/datasets after imputation/imp_lm_data_MNAR.rds")
@@ -92,15 +88,10 @@ for (i in seq_along(imp_lm_data_MNAR)) {
   imp_reg_data_MNAR[[i]] <- list()
   
   for (j in seq_along(imp_lm_data_MNAR[[i]])) {
-    lm_col <- imp_lm_data_MNAR[[i]][[j]]$tot_household_income
-    glm_col <- imp_glm_data_MNAR[[i]][[j]]$household_head_job
-    multinom_col <- imp_multinom_data_MNAR[[i]][[j]]$main_source_income
-    polr_col <- imp_polr_data_MNAR[[i]][[j]]$house_type_wall
-    
-    reg_df <- data.frame(tot_household_income = lm_col,
-                         household_head_job = glm_col,
-                         main_source_income = multinom_col,
-                         house_type_wall = polr_col)
+    reg_df <- imp_lm_data_MNAR[[i]][[j]]
+    reg_df$household_head_job <- imp_glm_data_MNAR[[i]][[j]]$household_head_job
+    reg_df$main_source_income <- imp_multinom_data_MNAR[[i]][[j]]$main_source_income
+    reg_df$house_type_wall <- imp_polr_data_MNAR[[i]][[j]]$house_type_wall
     
     imp_reg_data_MNAR[[i]][[j]] <- reg_df
   }
@@ -117,3 +108,6 @@ if (table_result == 2077 && summary_result1 == 2077 && summary_result2 == 2077 &
 } else {
   cat("Validation failed.")
 }
+
+#Saving .rds file
+#saveRDS(imp_reg_data_MNAR, "imp_reg_data_MNAR.rds")

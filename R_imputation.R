@@ -499,7 +499,7 @@ system.time(for (i in seq_along(data_MCAR_list)) {
   for (j in seq_len(length(data_MCAR_list[[i]]))) {
     data <- data_MCAR_list[[i]][[j]]
     
-    independent_vars <- c("housing_exp", "house_area_house", "num_bedrooms")
+    independent_vars <- c("housing_exp", "house_area", "house_num_bedrooms")
     
     formula <- as.formula(paste("house_type_wall ~", paste(independent_vars, collapse = " + ")))
     
@@ -529,7 +529,7 @@ system.time(for (i in seq_along(data_MAR_list)) {
   for (j in seq_len(length(data_MAR_list[[i]]))) {
     data <- data_MAR_list[[i]][[j]]
     
-    independent_vars <- c("housing_exp", "house_area_house", "num_bedrooms")
+    independent_vars <- c("housing_exp", "house_area", "house_num_bedrooms")
     
     formula <- as.formula(paste("house_type_wall ~", paste(independent_vars, collapse = " + ")))
     
