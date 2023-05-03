@@ -106,3 +106,44 @@ data$house_num_motorcycle_tricycle <- as.numeric(data$house_num_motorcycle_tricy
 data_samples_MCAR <- readRDS("data_samples_MCAR.rds")
 data_samples_MAR <- readRDS("data_samples_MAR.rds")
 data_samples_MNAR <- readRDS("data_samples_MNAR.rds")
+
+#Reordering levels - var: house_type_wall
+proper_order <- c("Not applicable", "Salvaged", "Very Light", "Light", "Quite strong", "Strong")
+
+#Data list
+#MCAR
+for (i in seq_along(data_MCAR_list)) {
+  for (j in seq_along(data_MCAR_list[[i]])) {
+    data_MCAR_list[[i]][[j]]$house_type_wall <- factor(data_MCAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
+  }
+}
+
+#MAR
+for (i in seq_along(data_MAR_list)) {
+  for (j in seq_along(data_MAR_list[[i]])) {
+    data_MAR_list[[i]][[j]]$house_type_wall <- factor(data_MAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
+  }
+}
+
+#MNAR
+for (i in seq_along(data_MNAR_list)) {
+  for (j in seq_along(data_MNAR_list[[i]])) {
+    data_MNAR_list[[i]][[j]]$house_type_wall <- factor(data_MNAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
+  }
+}
+
+#Data samples
+#MCAR
+for (i in seq_along(data_samples_MCAR)) {
+  data_samples_MCAR[[i]]$house_type_wall <- factor(data_samples_MCAR[[i]]$house_type_wall, levels = proper_order)
+}
+
+#MAR
+for (i in seq_along(data_samples_MAR)) {
+  data_samples_MAR[[i]]$house_type_wall <- factor(data_samples_MAR[[i]]$house_type_wall, levels = proper_order)
+}
+
+#MNAR
+for (i in seq_along(data_samples_MNAR)) {
+  data_samples_MNAR[[i]]$house_type_wall <- factor(data_samples_MNAR[[i]]$house_type_wall, levels = proper_order)
+}

@@ -147,30 +147,30 @@ acc_kNN_MNAR
 #####Regression imputation#####
 
 ######MCAR######
-imp_lm_data_MNAR <- readRDS("imp_lm_data_MNAR.rds")
+imp_reg_data_MCAR <- readRDS("imp_reg_data_MCAR.rds")
 
 result <- data.frame(mean_acc = numeric(14))
 
 for (i in 1:14) {
-  res_i <- numeric(length(seq_along(data_samples_MNAR)))
+  res_i <- numeric(length(seq_along(data_samples_MCAR)))
   
   for (j in seq_along(data_samples_MNAR)) {
-    actual <- data_samples_MNAR[[j]]$household_head_job
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$household_head_job
+    actual <- data_samples_MCAR[[j]]$household_head_job
+    predicted <- imp_reg_data_MCAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
   result[i, "mean_acc"] <- round(mean(res_i) * 100, 2)
 }
 
-acc_reg_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
-acc_reg_MNAR
+acc_reg_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
+acc_reg_MCAR
 
 #Saving .rds file
-saveRDS(acc_reg_MNAR, "acc_reg_MNAR.rds")
+saveRDS(acc_reg_MCAR, "acc_reg_MCAR.rds")
 
 ######MAR######
-imp_lm_data_MAR <- readRDS("imp_lm_data_MAR.rds")
+imp_reg_data_MAR <- readRDS("imp_reg_data_MAR.rds")
 
 result <- data.frame(mean_acc = numeric(14))
 
@@ -179,7 +179,7 @@ for (i in 1:14) {
   
   for (j in seq_along(data_samples_MAR)) {
     actual <- data_samples_MAR[[j]]$household_head_job
-    predicted <- imp_lm_data_MAR[[i]][[j]]$household_head_job
+    predicted <- imp_reg_data_MAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
@@ -193,7 +193,7 @@ acc_reg_MAR
 saveRDS(acc_reg_MAR, "acc_reg_MAR.rds")
 
 ######MNAR######
-imp_lm_data_MNAR <- readRDS("imp_lm_data_MNAR.rds")
+imp_reg_data_MNAR <- readRDS("imp_reg_data_MNAR.rds")
 
 result <- data.frame(mean_acc = numeric(14))
 
@@ -202,7 +202,7 @@ for (i in 1:14) {
   
   for (j in seq_along(data_samples_MNAR)) {
     actual <- data_samples_MNAR[[j]]$household_head_job
-    predicted <- imp_lm_data_MNAR[[i]][[j]]$household_head_job
+    predicted <- imp_reg_data_MNAR[[i]][[j]]$household_head_job
     res_i[j] <- accuracy(actual, predicted)
   }
   
