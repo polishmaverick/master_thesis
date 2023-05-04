@@ -4,6 +4,7 @@
 packages <- c(
   "Amelia",
   "boot",
+  "bootstrap",
   "coin",
   "corrplot",
   "dplyr",
