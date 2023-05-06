@@ -160,6 +160,11 @@ saveRDS(imp_hot_deck_data_MNAR, "imp_hot_deck_data_MNAR.rds")
 k_values <- c(1, 2, 15)
 results_list <- list()
 
+#Creating test dataset
+t <- data_MCAR_list[[14]][[3]] %>% 
+  dplyr::select(-ID) %>% 
+  as.data.frame()
+
 #Choosing best k - test
 for (i in k_values) {
   test_imp <- kNN(
