@@ -217,3 +217,107 @@ median_jackknife_reg_MNAR
 
 #Saving .rds file
 saveRDS(median_jackknife_reg_MNAR, "median_jackknife_reg_MNAR.rds")
+
+#####Random forest imputation#####
+######MCAR######
+imp_rf_data_MCAR <- readRDS("imp_rf_data_MCAR.rds")
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(imp_rf_data_MCAR)))
+  for (j in seq_along(imp_rf_data_MCAR)) {
+    res_i[j] <- jackknife_median(imp_rf_data_MCAR[[i]][[j]]$tot_household_income)
+  }
+  result[i, "mean_jackknife_median"] <- round(mean(res_i), 2)
+}
+
+median_jackknife_rf_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackknife_median = result)
+median_jackknife_rf_MCAR
+
+#Saving .rds file
+saveRDS(median_jackknife_rf_MCAR, "median_jackknife_rf_MCAR.rds")
+
+######MAR######
+imp_rf_data_MAR <- readRDS("imp_rf_data_MAR.rds")
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(imp_rf_data_MAR)))
+  for (j in seq_along(imp_rf_data_MAR)) {
+    res_i[j] <- jackknife_median(imp_rf_data_MAR[[i]][[j]]$tot_household_income)
+  }
+  result[i, "mean_jackknife_median"] <- round(mean(res_i), 2)
+}
+
+median_jackknife_rf_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackknife_median = result)
+median_jackknife_rf_MAR
+
+#Saving .rds file
+saveRDS(median_jackknife_rf_MAR, "median_jackknife_rf_MAR.rds")
+
+######MNAR######
+imp_rf_data_MNAR <- readRDS("imp_rf_data_MNAR.rds")
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(imp_rf_data_MNAR)))
+  for (j in seq_along(imp_rf_data_MNAR)) {
+    res_i[j] <- jackknife_median(imp_rf_data_MNAR[[i]][[j]]$tot_household_income)
+  }
+  result[i, "mean_jackknife_median"] <- round(mean(res_i), 2)
+}
+
+median_jackknife_rf_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackknife_median = result)
+median_jackknife_rf_MNAR
+
+#Saving .rds file
+saveRDS(median_jackknife_rf_MNAR, "median_jackknife_rf_MNAR.rds")
+
+#####Random forest imputation#####
+######MCAR######
+imp_mul_data_MCAR <- readRDS("imp_mul_data_MCAR.rds")
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(imp_mul_data_MCAR)))
+  for (j in seq_along(imp_mul_data_MCAR)) {
+    res_i[j] <- jackknife_median(imp_mul_data_MCAR[[i]][[j]]$tot_household_income)
+  }
+  result[i, "mean_jackknife_median"] <- round(mean(res_i), 2)
+}
+
+median_jackknife_mul_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackknife_median = result)
+median_jackknife_mul_MCAR
+
+#Saving .rds file
+saveRDS(median_jackknife_mul_MCAR, "median_jackknife_mul_MCAR.rds")
+
+######MAR######
+imp_mul_data_MAR <- readRDS("imp_mul_data_MAR.rds")
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(imp_mul_data_MAR)))
+  for (j in seq_along(imp_mul_data_MAR)) {
+    res_i[j] <- jackknife_median(imp_mul_data_MAR[[i]][[j]]$tot_household_income)
+  }
+  result[i, "mean_jackknife_median"] <- round(mean(res_i), 2)
+}
+
+median_jackknife_mul_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackknife_median = result)
+median_jackknife_mul_MAR
+
+#Saving .rds file
+saveRDS(median_jackknife_mul_MAR, "median_jackknife_mul_MAR.rds")
+
+######MNAR######
+imp_mul_data_MNAR <- readRDS("imp_mul_data_MNAR.rds")
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(imp_mul_data_MNAR)))
+  for (j in seq_along(imp_mul_data_MNAR)) {
+    res_i[j] <- jackknife_median(imp_mul_data_MNAR[[i]][[j]]$tot_household_income)
+  }
+  result[i, "mean_jackknife_median"] <- round(mean(res_i), 2)
+}
+
+median_jackknife_mul_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackknife_median = result)
+median_jackknife_mul_MNAR
+
+#Saving .rds file
+saveRDS(median_jackknife_mul_MNAR, "median_jackknife_mul_MNAR.rds")

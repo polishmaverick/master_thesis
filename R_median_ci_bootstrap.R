@@ -343,20 +343,165 @@ saveRDS(median_ci_bootstrap_reg_MNAR_ci, "median_ci_bootstrap_reg_MNAR_ci.rds")
 #####Random forest imputation#####
 
 ######MCAR######
+imp_rf_data_MCAR <- readRDS("imp_rf_data_MCAR.rds")
 
+for (i in 1:14) {
+  coverage <- 0
+  for (j in seq_along(imp_rf_data_MCAR[[i]])) {
+    boot_result <- bootstrap_median_ci(imp_rf_data_MCAR[[i]][[j]]$tot_household_income, R = 1000)
+    boot_ci <- boot.ci(boot_result, conf = 0.95, type = "perc")
+    lower_ci <- round(boot_ci$percent[4], 2)
+    upper_ci <- round(boot_ci$percent[5], 2)
+    
+    if (lower_ci <= population_median && upper_ci >= population_median) {
+      coverage <- coverage + 1
+    }
+  }
+  
+  result[i, "lower_ci"] <- lower_ci
+  result[i, "upper_ci"] <- upper_ci
+  result[i, "coverage"] <- coverage
+}
+
+median_ci_bootstrap_rf_MCAR_ci <- data.frame(na_frac = seq(5, 70, 5), lower_ci = result$lower_ci, upper_ci = result$upper_ci, coverage = result$coverage)
+median_ci_bootstrap_rf_MCAR_ci
+
+#Saving .rds file
+saveRDS(median_ci_bootstrap_rf_MCAR_ci, "median_ci_bootstrap_rf_MCAR_ci.rds")
 
 ######MAR######
+imp_rf_data_MAR <- readRDS("imp_rf_data_MAR.rds")
 
+for (i in 1:14) {
+  coverage <- 0
+  for (j in seq_along(imp_rf_data_MAR[[i]])) {
+    boot_result <- bootstrap_median_ci(imp_rf_data_MAR[[i]][[j]]$tot_household_income, R = 1000)
+    boot_ci <- boot.ci(boot_result, conf = 0.95, type = "perc")
+    lower_ci <- round(boot_ci$percent[4], 2)
+    upper_ci <- round(boot_ci$percent[5], 2)
+    
+    if (lower_ci <= population_median && upper_ci >= population_median) {
+      coverage <- coverage + 1
+    }
+  }
+  
+  result[i, "lower_ci"] <- lower_ci
+  result[i, "upper_ci"] <- upper_ci
+  result[i, "coverage"] <- coverage
+}
+
+median_ci_bootstrap_rf_MAR_ci <- data.frame(na_frac = seq(5, 70, 5), lower_ci = result$lower_ci, upper_ci = result$upper_ci, coverage = result$coverage)
+median_ci_bootstrap_rf_MAR_ci
+
+#Saving .rds file
+saveRDS(median_ci_bootstrap_rf_MAR_ci, "median_ci_bootstrap_rf_MAR_ci.rds")
 
 ######MNAR######
+imp_rf_data_MNAR <- readRDS("imp_rf_data_MNAR.rds")
 
+for (i in 1:14) {
+  coverage <- 0
+  for (j in seq_along(imp_rf_data_MNAR[[i]])) {
+    boot_result <- bootstrap_median_ci(imp_rf_data_MNAR[[i]][[j]]$tot_household_income, R = 1000)
+    boot_ci <- boot.ci(boot_result, conf = 0.95, type = "perc")
+    lower_ci <- round(boot_ci$percent[4], 2)
+    upper_ci <- round(boot_ci$percent[5], 2)
+    
+    if (lower_ci <= population_median && upper_ci >= population_median) {
+      coverage <- coverage + 1
+    }
+  }
+  
+  result[i, "lower_ci"] <- lower_ci
+  result[i, "upper_ci"] <- upper_ci
+  result[i, "coverage"] <- coverage
+}
+
+median_ci_bootstrap_rf_MNAR_ci <- data.frame(na_frac = seq(5, 70, 5), lower_ci = result$lower_ci, upper_ci = result$upper_ci, coverage = result$coverage)
+median_ci_bootstrap_rf_MNAR_ci
+
+#Saving .rds file
+saveRDS(median_ci_bootstrap_rf_MNAR_ci, "median_ci_bootstrap_rf_MNAR_ci.rds")
 
 #####Multiple imputation#####
 
 ######MCAR######
+imp_mul_data_MCAR <- readRDS("imp_mul_data_MCAR.rds")
 
+for (i in 1:14) {
+  coverage <- 0
+  for (j in seq_along(imp_mul_data_MCAR[[i]])) {
+    boot_result <- bootstrap_median_ci(imp_mul_data_MCAR[[i]][[j]]$tot_household_income, R = 1000)
+    boot_ci <- boot.ci(boot_result, conf = 0.95, type = "perc")
+    lower_ci <- round(boot_ci$percent[4], 2)
+    upper_ci <- round(boot_ci$percent[5], 2)
+    
+    if (lower_ci <= population_median && upper_ci >= population_median) {
+      coverage <- coverage + 1
+    }
+  }
+  
+  result[i, "lower_ci"] <- lower_ci
+  result[i, "upper_ci"] <- upper_ci
+  result[i, "coverage"] <- coverage
+}
+
+median_ci_bootstrap_mul_MCAR_ci <- data.frame(na_frac = seq(5, 70, 5), lower_ci = result$lower_ci, upper_ci = result$upper_ci, coverage = result$coverage)
+median_ci_bootstrap_mul_MCAR_ci
+
+#Saving .rds file
+saveRDS(median_ci_bootstrap_mul_MCAR_ci, "median_ci_bootstrap_mul_MCAR_ci.rds")
 
 ######MAR######
+imp_mul_data_MAR <- readRDS("imp_mul_data_MAR.rds")
 
+for (i in 1:14) {
+  coverage <- 0
+  for (j in seq_along(imp_mul_data_MAR[[i]])) {
+    boot_result <- bootstrap_median_ci(imp_mul_data_MAR[[i]][[j]]$tot_household_income, R = 1000)
+    boot_ci <- boot.ci(boot_result, conf = 0.95, type = "perc")
+    lower_ci <- round(boot_ci$percent[4], 2)
+    upper_ci <- round(boot_ci$percent[5], 2)
+    
+    if (lower_ci <= population_median && upper_ci >= population_median) {
+      coverage <- coverage + 1
+    }
+  }
+  
+  result[i, "lower_ci"] <- lower_ci
+  result[i, "upper_ci"] <- upper_ci
+  result[i, "coverage"] <- coverage
+}
+
+median_ci_bootstrap_mul_MAR_ci <- data.frame(na_frac = seq(5, 70, 5), lower_ci = result$lower_ci, upper_ci = result$upper_ci, coverage = result$coverage)
+median_ci_bootstrap_mul_MAR_ci
+
+#Saving .rds file
+saveRDS(median_ci_bootstrap_mul_MAR_ci, "median_ci_bootstrap_mul_MAR_ci.rds")
 
 ######MNAR######
+imp_mul_data_MNAR <- readRDS("imp_mul_data_MNAR.rds")
+
+for (i in 1:14) {
+  coverage <- 0
+  for (j in seq_along(imp_mul_data_MNAR[[i]])) {
+    boot_result <- bootstrap_median_ci(imp_mul_data_MNAR[[i]][[j]]$tot_household_income, R = 1000)
+    boot_ci <- boot.ci(boot_result, conf = 0.95, type = "perc")
+    lower_ci <- round(boot_ci$percent[4], 2)
+    upper_ci <- round(boot_ci$percent[5], 2)
+    
+    if (lower_ci <= population_median && upper_ci >= population_median) {
+      coverage <- coverage + 1
+    }
+  }
+  
+  result[i, "lower_ci"] <- lower_ci
+  result[i, "upper_ci"] <- upper_ci
+  result[i, "coverage"] <- coverage
+}
+
+median_ci_bootstrap_mul_MNAR_ci <- data.frame(na_frac = seq(5, 70, 5), lower_ci = result$lower_ci, upper_ci = result$upper_ci, coverage = result$coverage)
+median_ci_bootstrap_mul_MNAR_ci
+
+#Saving .rds file
+saveRDS(median_ci_bootstrap_mul_MNAR_ci, "median_ci_bootstrap_mul_MNAR_ci.rds")

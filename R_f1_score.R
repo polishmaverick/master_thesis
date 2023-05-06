@@ -243,20 +243,141 @@ saveRDS(f1_reg_MNAR, "f1_reg_MNAR.rds")
 #####Random forest imputation#####
 
 ######MCAR######
+imp_rf_data_MCAR <- readRDS("imp_rf_data_MCAR.rds")
 
+result <- data.frame(mean_f1_macro = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MCAR)))
+  
+  for (j in seq_along(data_samples_MCAR)) {
+    actual <- data_samples_MCAR[[j]]$house_type_wall
+    predicted <- imp_rf_data_MCAR[[i]][[j]]$house_type_wall
+    res_i[j] <- calculate_macro_f1_score(actual, predicted)
+  }
+  
+  result[i, "mean_f1_macro"] <- round(mean(res_i, na.rm = TRUE) * 100, 2)
+}
+
+f1_rf_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_f1_macro = result)
+f1_rf_MCAR
+
+#Saving .rds file
+saveRDS(f1_rf_MCAR, "f1_rf_MCAR.rds")
 
 ######MAR######
+imp_rf_data_MAR <- readRDS("imp_rf_data_MAR.rds")
 
+result <- data.frame(mean_f1_macro = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MAR)))
+  
+  for (j in seq_along(data_samples_MAR)) {
+    actual <- data_samples_MAR[[j]]$house_type_wall
+    predicted <- imp_rf_data_MAR[[i]][[j]]$house_type_wall
+    res_i[j] <- calculate_macro_f1_score(actual, predicted)
+  }
+  
+  result[i, "mean_f1_macro"] <- round(mean(res_i, na.rm = TRUE) * 100, 2)
+}
+
+f1_rf_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_f1_macro = result)
+f1_rf_MAR
+
+#Saving .rds file
+saveRDS(f1_rf_MAR, "f1_rf_MAR.rds")
 
 ######MNAR######
+imp_rf_data_MNAR <- readRDS("imp_rf_data_MNAR.rds")
 
+result <- data.frame(mean_f1_macro = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MNAR)))
+  
+  for (j in seq_along(data_samples_MNAR)) {
+    actual <- data_samples_MNAR[[j]]$house_type_wall
+    predicted <- imp_rf_data_MNAR[[i]][[j]]$house_type_wall
+    res_i[j] <- calculate_macro_f1_score(actual, predicted)
+  }
+  
+  result[i, "mean_f1_macro"] <- round(mean(res_i, na.rm = TRUE) * 100, 2)
+}
+
+f1_rf_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_f1_macro = result)
+f1_rf_MNAR
+
+#Saving .rds file
+saveRDS(f1_rf_MNAR, "f1_rf_MNAR.rds")
 
 #####Multiple imputation#####
 
 ######MCAR######
+imp_mul_data_MCAR <- readRDS("imp_mul_data_MCAR.rds")
 
+result <- data.frame(mean_f1_macro = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MCAR)))
+  
+  for (j in seq_along(data_samples_MCAR)) {
+    actual <- data_samples_MCAR[[j]]$house_type_wall
+    predicted <- imp_mul_data_MCAR[[i]][[j]]$house_type_wall
+    res_i[j] <- calculate_macro_f1_score(actual, predicted)
+  }
+  
+  result[i, "mean_f1_macro"] <- round(mean(res_i, na.rm = TRUE) * 100, 2)
+}
+
+f1_mul_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_f1_macro = result)
+f1_mul_MCAR
+
+#Saving .rds file
+saveRDS(f1_mul_MCAR, "f1_mul_MCAR.rds")
 
 ######MAR######
+imp_mul_data_MAR <- readRDS("imp_mul_data_MAR.rds")
 
+result <- data.frame(mean_f1_macro = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MAR)))
+  
+  for (j in seq_along(data_samples_MAR)) {
+    actual <- data_samples_MAR[[j]]$house_type_wall
+    predicted <- imp_mul_data_MAR[[i]][[j]]$house_type_wall
+    res_i[j] <- calculate_macro_f1_score(actual, predicted)
+  }
+  
+  result[i, "mean_f1_macro"] <- round(mean(res_i, na.rm = TRUE) * 100, 2)
+}
+
+f1_mul_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_f1_macro = result)
+f1_mul_MAR
+
+#Saving .rds file
+saveRDS(f1_mul_MAR, "f1_mul_MAR.rds")
 
 ######MNAR######
+imp_mul_data_MNAR <- readRDS("imp_mul_data_MNAR.rds")
+
+result <- data.frame(mean_f1_macro = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MNAR)))
+  
+  for (j in seq_along(data_samples_MNAR)) {
+    actual <- data_samples_MNAR[[j]]$house_type_wall
+    predicted <- imp_mul_data_MNAR[[i]][[j]]$house_type_wall
+    res_i[j] <- calculate_macro_f1_score(actual, predicted)
+  }
+  
+  result[i, "mean_f1_macro"] <- round(mean(res_i, na.rm = TRUE) * 100, 2)
+}
+
+f1_mul_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_f1_macro = result)
+f1_mul_MNAR
+
+#Saving .rds file
+saveRDS(f1_mul_MNAR, "f1_mul_MNAR.rds")

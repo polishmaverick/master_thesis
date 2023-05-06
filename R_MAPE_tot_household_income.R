@@ -287,31 +287,139 @@ mape_reg_MNAR
 ######MCAR######
 imp_rf_data_MCAR <- readRDS("imp_rf_data_MCAR.rds")
 
-mape_randomforest_MCAR
+result <- data.frame(mean_MAPE = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MCAR)))
+  
+  for (j in seq_along(data_samples_MCAR)) {
+    actual <- data_samples_MCAR[[j]]$tot_household_income
+    predicted <- imp_rf_data_MCAR[[i]][[j]]$tot_household_income
+    res_i[j] <- mape(actual, predicted)
+  }
+  
+  result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
+}
+
+mape_rf_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_rf_MCAR
+
+#Saving .rds file
+#saveRDS(mape_rf_MCAR, "mape_rf_MCAR.rds")
 
 ######MAR######
 imp_rf_data_MAR <- readRDS("imp_rf_data_MAR.rds")
 
-mape_randomforest_MAR
+result <- data.frame(mean_MAPE = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MAR)))
+  
+  for (j in seq_along(data_samples_MAR)) {
+    actual <- data_samples_MAR[[j]]$tot_household_income
+    predicted <- imp_rf_data_MAR[[i]][[j]]$tot_household_income
+    res_i[j] <- mape(actual, predicted)
+  }
+  
+  result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
+}
+
+mape_rf_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_rf_MAR
+
+#Saving .rds file
+#saveRDS(mape_rf_MAR, "mape_rf_MAR.rds")
 
 ######MNAR######
 imp_rf_data_MNAR <- readRDS("imp_rf_data_MNAR.rds")
 
-mape_randomforest_MNAR
+result <- data.frame(mean_MAPE = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MNAR)))
+  
+  for (j in seq_along(data_samples_MNAR)) {
+    actual <- data_samples_MNAR[[j]]$tot_household_income
+    predicted <- imp_rf_data_MNAR[[i]][[j]]$tot_household_income
+    res_i[j] <- mape(actual, predicted)
+  }
+  
+  result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
+}
+
+mape_rf_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_rf_MNAR
+
+#Saving .rds file
+#saveRDS(mape_rf_MNAR, "mape_rf_MNAR.rds")
 
 #####Multiple imputation#####
 
 ######MCAR######
 imp_mul_data_MCAR <- readRDS("imp_mul_data_MCAR.rds")
 
-mape_multiple_MCAR
+result <- data.frame(mean_MAPE = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MCAR)))
+  
+  for (j in seq_along(data_samples_MCAR)) {
+    actual <- data_samples_MCAR[[j]]$tot_household_income
+    predicted <- imp_mul_data_MCAR[[i]][[j]]$tot_household_income
+    res_i[j] <- mape(actual, predicted)
+  }
+  
+  result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
+}
+
+mape_mul_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_mul_MCAR
+
+#Saving .rds file
+#saveRDS(mape_mul_MCAR, "mape_mul_MCAR.rds")
 
 ######MAR######
 imp_mul_data_MAR <- readRDS("imp_mul_data_MAR.rds")
 
-mape_multiple_MAR
+result <- data.frame(mean_MAPE = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MAR)))
+  
+  for (j in seq_along(data_samples_MAR)) {
+    actual <- data_samples_MAR[[j]]$tot_household_income
+    predicted <- imp_mul_data_MAR[[i]][[j]]$tot_household_income
+    res_i[j] <- mape(actual, predicted)
+  }
+  
+  result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
+}
+
+mape_mul_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_mul_MAR
+
+#Saving .rds file
+#saveRDS(mape_mul_MAR, "mape_mul_MAR.rds")
 
 ######MNAR######
 imp_mul_data_MNAR <- readRDS("imp_mul_data_MNAR.rds")
 
-mape_multiple_MNAR
+result <- data.frame(mean_MAPE = numeric(14))
+
+for (i in 1:14) {
+  res_i <- numeric(length(seq_along(data_samples_MNAR)))
+  
+  for (j in seq_along(data_samples_MNAR)) {
+    actual <- data_samples_MNAR[[j]]$tot_household_income
+    predicted <- imp_mul_data_MNAR[[i]][[j]]$tot_household_income
+    res_i[j] <- mape(actual, predicted)
+  }
+  
+  result[i, "mean_MAPE"] <- round(mean(res_i) * 100, 2)
+}
+
+mape_mul_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_MAPE = result)
+mape_mul_MNAR
+
+#Saving .rds file
+#saveRDS(mape_mul_MNAR, "mape_mul_MNAR.rds")

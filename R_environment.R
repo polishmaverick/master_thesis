@@ -18,7 +18,7 @@ packages <- c(
   "missMethods",
   "mltools",
   "nnet",
-  "paraller",
+  "parallel",
   "perm",
   "RColorBrewer",
   "readxl",
