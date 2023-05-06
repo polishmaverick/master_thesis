@@ -1,9 +1,11 @@
-#####Defining#####
-bootstrap_median <- function(data, R = 100) {
+#####Defining function for calculating median - method: bootstrap#####
+bootstrap_median <- function(data, R) {
   set.seed(123)
-  boot_result <- boot(data, function(data, indices) median(data[indices]), R = R)
+  boot_result <- boot(data, function(data, indices) median(data[indices]), R = 1000)
   return(mean(boot_result$t))
 }
+
+result <- data.frame(mean_bootstrap_median = numeric(14))
 
 #####Median imputation#####
 
