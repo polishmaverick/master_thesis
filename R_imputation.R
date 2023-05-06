@@ -21,6 +21,7 @@ system.time({
   }
 })
 
+#Saving .rds file
 saveRDS(imp_median_data_MCAR, "imp_median_data_MCAR.rds")
 
 ######MAR######
@@ -44,6 +45,7 @@ system.time({
   }
 })
 
+#Saving .rds file
 saveRDS(imp_median_data_MAR, "imp_median_data_MAR.rds")
 
 ######MNAR######
@@ -67,6 +69,7 @@ system.time({
   }
 })
 
+#Saving .rds file
 saveRDS(imp_median_data_MNAR, "imp_median_data_MNAR.rds")
 
 #####Hot-deck imputation#####
@@ -114,6 +117,7 @@ system.time(
   }
 )
 
+#Saving .rds file
 saveRDS(imp_hot_deck_data_MCAR, "imp_hot_deck_data_MCAR.rds")
 
 ######MAR######
@@ -132,6 +136,7 @@ system.time(
   }
 )
 
+#Saving .rds file
 saveRDS(imp_hot_deck_data_MAR, "imp_hot_deck_data_MAR.rds")
 
 ######MNAR######
@@ -149,7 +154,8 @@ system.time(
     imp_hot_deck_data_MNAR[[i]] <- temp_list
   }
 )
-  
+
+#Saving .rds file
 saveRDS(imp_hot_deck_data_MNAR, "imp_hot_deck_data_MNAR.rds")
 
 #####kNN imputation#####
@@ -204,6 +210,7 @@ system.time(
   }
 )
 
+#Saving .rds file
 saveRDS(imp_kNN_data_MCAR, "imp_kNN_data_MCAR.rds")
 
 ######MAR######
@@ -223,6 +230,7 @@ system.time(
   }
 )
 
+#Saving .rds file
 saveRDS(imp_kNN_data_MAR, "imp_kNN_data_MAR.rds")
 
 ######MNAR######
@@ -242,6 +250,7 @@ system.time(
   }
 )
 
+#Saving .rds file
 saveRDS(imp_kNN_data_MNAR, "imp_kNN_data_MNAR.rds")
 
 #####Regression imputation#####
