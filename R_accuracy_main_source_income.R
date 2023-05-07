@@ -25,7 +25,7 @@ acc_hotdeck_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_hotdeck_MCAR
 
 #Saving .rds file
-#saveRDS(acc_hotdeck_MCAR, "acc_hotdeck_MCAR.rds")
+saveRDS(acc_hotdeck_MCAR, "acc_hotdeck_MCAR.rds")
 
 ######MAR######
 imp_hot_deck_data_MAR <- readRDS("imp_hot_deck_data_MAR.rds")
@@ -48,7 +48,7 @@ acc_hotdeck_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_hotdeck_MAR
 
 #Saving .rds file
-#saveRDS(acc_hotdeck_MAR, "acc_hotdeck_MAR.rds")
+saveRDS(acc_hotdeck_MAR, "acc_hotdeck_MAR.rds")
 
 ######MNAR######
 imp_hot_deck_data_MNAR <- readRDS("imp_hot_deck_data_MNAR.rds")
@@ -71,7 +71,7 @@ acc_hotdeck_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_hotdeck_MNAR
 
 #Saving .rds file
-#saveRDS(acc_hotdeck_MNAR, "acc_hotdeck_MNAR.rds")
+saveRDS(acc_hotdeck_MNAR, "acc_hotdeck_MNAR.rds")
 
 #####kNN imputation#####
 
@@ -96,7 +96,7 @@ acc_kNN_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_kNN_MCAR
 
 #Saving .rds file
-#saveRDS(acc_kNN_MCAR, "acc_kNN_MCAR.rds")
+saveRDS(acc_kNN_MCAR, "acc_kNN_MCAR.rds")
 
 ######MAR######
 imp_kNN_data_MAR <- readRDS("imp_kNN_data_MAR.rds")
@@ -119,7 +119,7 @@ acc_kNN_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_kNN_MAR
 
 #Saving .rds file
-#saveRDS(acc_kNN_MAR, "acc_kNN_MAR.rds")
+saveRDS(acc_kNN_MAR, "acc_kNN_MAR.rds")
 
 ######MNAR######
 imp_kNN_data_MNAR <- readRDS("imp_kNN_data_MNAR.rds")
@@ -142,7 +142,7 @@ acc_kNN_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_kNN_MNAR
 
 #Saving .rds file
-#saveRDS(acc_kNN_MNAR, "acc_kNN_MNAR.rds")
+saveRDS(acc_kNN_MNAR, "acc_kNN_MNAR.rds")
 
 #####Regression imputation#####
 
@@ -167,7 +167,7 @@ acc_reg_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_reg_MCAR
 
 #Saving .rds file
-#saveRDS(acc_reg_MCAR, "acc_reg_MCAR.rds")
+saveRDS(acc_reg_MCAR, "acc_reg_MCAR.rds")
 
 ######MAR######
 imp_reg_data_MAR <- readRDS("imp_reg_data_MAR.rds")
@@ -190,7 +190,7 @@ acc_reg_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_reg_MAR
 
 #Saving .rds file
-#saveRDS(acc_reg_MAR, "acc_reg_MAR.rds")
+saveRDS(acc_reg_MAR, "acc_reg_MAR.rds")
 
 ######MNAR######
 imp_reg_data_MNAR <- readRDS("imp_reg_data_MNAR.rds")
@@ -213,7 +213,7 @@ acc_reg_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_reg_MNAR
 
 #Saving .rds file
-#saveRDS(acc_reg_MNAR, "acc_reg_MNAR.rds")
+saveRDS(acc_reg_MNAR, "acc_reg_MNAR.rds")
 
 #####Random forest imputation#####
 
@@ -238,7 +238,7 @@ acc_rf_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_rf_MCAR
 
 #Saving .rds file
-#saveRDS(acc_rf_MCAR, "acc_rf_MCAR.rds")
+saveRDS(acc_rf_MCAR, "acc_rf_MCAR.rds")
 
 ######MAR######
 imp_rf_data_MAR <- readRDS("imp_rf_data_MAR.rds")
@@ -261,7 +261,7 @@ acc_rf_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_rf_MAR
 
 #Saving .rds file
-#saveRDS(acc_rf_MAR, "acc_rf_MAR.rds")
+saveRDS(acc_rf_MAR, "acc_rf_MAR.rds")
 
 ######MNAR######
 imp_rf_data_MNAR <- readRDS("imp_rf_data_MNAR.rds")
@@ -284,7 +284,7 @@ acc_rf_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_rf_MNAR
 
 #Saving .rds file
-#saveRDS(acc_rf_MNAR, "acc_rf_MNAR.rds")
+saveRDS(acc_rf_MNAR, "acc_rf_MNAR.rds")
 
 #####Multiple imputation#####
 
@@ -309,7 +309,7 @@ acc_mul_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_mul_MCAR
 
 #Saving .rds file
-#saveRDS(acc_mul_MCAR, "acc_mul_MCAR.rds")
+saveRDS(acc_mul_MCAR, "acc_mul_MCAR.rds")
 
 ######MAR######
 imp_mul_data_MAR <- readRDS("imp_mul_data_MAR.rds")
@@ -332,7 +332,7 @@ acc_mul_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_mul_MAR
 
 #Saving .rds file
-#saveRDS(acc_mul_MAR, "acc_mul_MAR.rds")
+saveRDS(acc_mul_MAR, "acc_mul_MAR.rds")
 
 ######MNAR######
 imp_mul_data_MNAR <- readRDS("imp_mul_data_MNAR.rds")
@@ -355,4 +355,4 @@ acc_mul_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_acc = result)
 acc_mul_MNAR
 
 #Saving .rds file
-#saveRDS(acc_mul_MNAR, "acc_mul_MNAR.rds")
+saveRDS(acc_mul_MNAR, "acc_mul_MNAR.rds")
