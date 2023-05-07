@@ -448,3 +448,40 @@ c("housing_exp", "house_area_house", "num_bedrooms")
 
 c("housing_exp", "house_num_bedrooms")
 #housing_exp house_num_bedrooms
+#####Multiple imputation#####
+methods <- c("pmm", "midastouch", "sample", "cart", "rf")
+
+df <- data_MNAR_list[[14]][[100]]
+
+df[] <- lapply(df, function(x) {
+  if (is.numeric(x)) {
+    return(x / 100000)
+  } else {
+    return(x)
+  }
+})
+
+evaluation_results <- data.frame(Method = character(), Indicator = numeric())
+
+for (method_name in methods) {
+  method <- make.method(df)
+  method["household_head_job"] <- method_name
+  
+  mice_mod <- mice(df, m = 1, method = method, maxit = 1, seed = 123)
+  
+  dfn <- complete(mice_mod, action = 1)
+  
+  dfn[] <- lapply(dfn, function(x) {
+    if (is.numeric(x)) {
+      return(x * 100000)
+    } else {
+      return(x)
+    }
+  })
+  
+  ind <- mape(data_samples_MNAR[[100]]$household_head_job, dfn$household_head_job)
+  
+  evaluation_results <- rbind(evaluation_results, data.frame(Method = method_name, Indicator = ind))
+}
+
+evaluation_results

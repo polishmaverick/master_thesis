@@ -596,22 +596,274 @@ saveRDS(imp_polr_data_MNAR, "imp_polr_data_MNAR.rds")
 
 #####Random forest imputation#####
 
-######MCAR######
-imp_rf_data_MCAR_list <-
-  
-######MAR######
-imp_rf_data_MAR_list <-
-  
-######MNAR######
-imp_rf_data_MNAR_list <-  
+#####MCAR######
+imp_rf_data_MCAR <- list()
+
+for (i in seq_along(data_MCAR_list)) {
+  imp_rf_data_MCAR[[i]] <- list()
+  for (j in seq_along(data_MCAR_list[[i]])) {
+    df <- data_MCAR_list[[i]][[j]]
+    
+    df[] <- lapply(df, function(x) {
+      if (is.numeric(x)) {
+        return(x / 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    start_time <- Sys.time()
+    
+    mice_mod <- mice(df, m = 5, method = "rf", maxit = 1, seed = 123)
+    
+    dfn <- complete(mice_mod, action = 1)
+    
+    dfn[] <- lapply(dfn, function(x) {
+      if (is.numeric(x)) {
+        return(x * 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    imp_rf_data_MCAR[[i]][[j]] <- dfn
+    
+    sum(is.na(dfn))
+    end_time <- Sys.time()
+    time_elapsed <- end_time - start_time
+    cat("Iteration:", i, j, "Time elapsed:", time_elapsed, "\n")
+  }
+}
+
+#Saving .rds file
+saveRDS(imp_rf_data_MCAR, "imp_rf_data_MCAR.rds")
+
+#####MAR######
+imp_rf_data_MAR <- list()
+
+for (i in seq_along(data_MAR_list)) {
+  imp_rf_data_MAR[[i]] <- list()
+  for (j in seq_along(data_MAR_list[[i]])) {
+    df <- data_MAR_list[[i]][[j]]
+    
+    df[] <- lapply(df, function(x) {
+      if (is.numeric(x)) {
+        return(x / 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    start_time <- Sys.time()
+    
+    mice_mod <- mice(df, m = 5, method = "rf", maxit = 1, seed = 123)
+    
+    dfn <- complete(mice_mod, action = 1)
+    
+    dfn[] <- lapply(dfn, function(x) {
+      if (is.numeric(x)) {
+        return(x * 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    imp_rf_data_MAR[[i]][[j]] <- dfn
+    
+    sum(is.na(dfn))
+    end_time <- Sys.time()
+    time_elapsed <- end_time - start_time
+    cat("Iteration:", i, j, "Time elapsed:", time_elapsed, "\n")
+  }
+}
+
+#Saving .rds file
+saveRDS(imp_rf_data_MAR, "imp_rf_data_MAR.rds")
+
+#####MNAR######
+imp_rf_data_MNAR <- list()
+
+for (i in seq_along(data_MNAR_list)) {
+  imp_rf_data_MNAR[[i]] <- list()
+  for (j in seq_along(data_MNAR_list[[i]])) {
+    df <- data_MNAR_list[[i]][[j]]
+    
+    df[] <- lapply(df, function(x) {
+      if (is.numeric(x)) {
+        return(x / 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    start_time <- Sys.time()
+    
+    mice_mod <- mice(df, m = 5, method = "rf", maxit = 1, seed = 123)
+    
+    dfn <- complete(mice_mod, action = 1)
+    
+    dfn[] <- lapply(dfn, function(x) {
+      if (is.numeric(x)) {
+        return(x * 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    imp_rf_data_MNAR[[i]][[j]] <- dfn
+    
+    sum(is.na(dfn))
+    end_time <- Sys.time()
+    time_elapsed <- end_time - start_time
+    cat("Iteration:", i, j, "Time elapsed:", time_elapsed, "\n")
+  }
+}
+
+#Saving .rds file
+saveRDS(imp_rf_data_MNAR, "imp_rf_data_MNAR.rds")
   
 #####Multiple imputation#####
 
-######MCAR######
-imp_mul_data_MCAR_list <-
+#####MCAR######
+imp_mul_data_MCAR <- list()
 
-######MAR######
-imp_mul_data_MAR_list <-
+for (i in seq_along(data_MCAR_list)) {
+  imp_mul_data_MCAR[[i]] <- list()
+  for (j in seq_along(data_MCAR_list[[i]])) {
+    df <- data_MCAR_list[[i]][[j]]
+    
+    df[] <- lapply(df, function(x) {
+      if (is.numeric(x)) {
+        return(x / 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    method <- make.method(df)
+    method["tot_household_income"] <- "cart"
+    method["household_head_job"] <- "rf"
+    method["main_source_income"] <- "polyreg"
+    method["house_type_wall"] <- "rf"
+    
+    start_time <- Sys.time()
+    
+    mice_mod <- mice(df, m = 2, method = method, maxit = 1, seed = 123)
+    
+    dfn <- complete(mice_mod, action = 1)
+    
+    dfn[] <- lapply(dfn, function(x) {
+      if (is.numeric(x)) {
+        return(x * 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    imp_mul_data_MCAR[[i]][[j]] <- dfn
+    
+    sum(is.na(dfn))
+    end_time <- Sys.time()
+    time_elapsed <- end_time - start_time
+    cat("Iteration:", i, j, "Time elapsed:", time_elapsed, "\n")
+  }
+}
 
-######MNAR######
-imp_mul_data_MNAR_list <-
+#Saving .rds file
+saveRDS(imp_mul_data_MCAR, "imp_mul_data_MCAR.rds")
+
+#####MAR######
+imp_mul_data_MAR <- list()
+
+for (i in seq_along(data_MAR_list)) {
+  imp_mul_data_MAR[[i]] <- list()
+  for (j in seq_along(data_MAR_list[[i]])) {
+    df <- data_MAR_list[[i]][[j]]
+    
+    df[] <- lapply(df, function(x) {
+      if (is.numeric(x)) {
+        return(x / 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    method <- make.method(df)
+    method["tot_household_income"] <- "cart"
+    method["household_head_job"] <- "rf"
+    method["main_source_income"] <- "polyreg"
+    method["house_type_wall"] <- "rf"
+    
+    start_time <- Sys.time()
+    
+    mice_mod <- mice(df, m = 2, method = method, maxit = 1, seed = 123)
+    
+    dfn <- complete(mice_mod, action = 1)
+    
+    dfn[] <- lapply(dfn, function(x) {
+      if (is.numeric(x)) {
+        return(x * 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    imp_mul_data_MAR[[i]][[j]] <- dfn
+    
+    sum(is.na(dfn))
+    end_time <- Sys.time()
+    time_elapsed <- end_time - start_time
+    cat("Iteration:", i, j, "Time elapsed:", time_elapsed, "\n")
+  }
+}
+
+#Saving .rds file
+saveRDS(imp_mul_data_MAR, "imp_mul_data_MAR.rds")
+
+#####MNAR######
+imp_mul_data_MNAR <- list()
+
+for (i in seq_along(data_MNAR_list)) {
+  imp_mul_data_MNAR[[i]] <- list()
+  for (j in seq_along(data_MNAR_list[[i]])) {
+    df <- data_MNAR_list[[i]][[j]]
+    
+    df[] <- lapply(df, function(x) {
+      if (is.numeric(x)) {
+        return(x / 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    method <- make.method(df)
+    method["tot_household_income"] <- "cart"
+    method["household_head_job"] <- "rf"
+    method["main_source_income"] <- "polyreg"
+    method["house_type_wall"] <- "rf"
+    
+    start_time <- Sys.time()
+    
+    mice_mod <- mice(df, m = 2, method = method, maxit = 1, seed = 123)
+    
+    dfn <- complete(mice_mod, action = 1)
+    
+    dfn[] <- lapply(dfn, function(x) {
+      if (is.numeric(x)) {
+        return(x * 100000)
+      } else {
+        return(x)
+      }
+    })
+    
+    imp_mul_data_MNAR[[i]][[j]] <- dfn
+    
+    sum(is.na(dfn))
+    end_time <- Sys.time()
+    time_elapsed <- end_time - start_time
+    cat("Iteration:", i, j, "Time elapsed:", time_elapsed, "\n")
+  }
+}
+
+#Saving .rds file
+saveRDS(imp_mul_data_MNAR, "imp_mul_data_MNAR.rds")
