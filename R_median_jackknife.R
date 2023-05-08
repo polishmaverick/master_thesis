@@ -76,7 +76,7 @@ median_jackknife_hotdeck_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackkn
 median_jackknife_hotdeck_MCAR
 
 #Saving .rds file
-saveRDS(median_jacknife_hotdeck_MCAR, "median_jackknife_hotdeck_MCAR.rds")
+saveRDS(median_jackknife_hotdeck_MCAR, "median_jackknife_hotdeck_MCAR.rds")
 
 ######MAR######
 imp_hot_deck_data_MAR <- readRDS("imp_hot_deck_data_MAR.rds")
@@ -93,7 +93,7 @@ median_jackknife_hotdeck_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackkni
 median_jackknife_hotdeck_MAR
 
 #Saving .rds file
-saveRDS(median_jacknife_hotdeck_MAR, "median_jackknife_hotdeck_MAR.rds")
+saveRDS(median_jackknife_hotdeck_MAR, "median_jackknife_hotdeck_MAR.rds")
 
 ######MNAR######
 imp_hot_deck_data_MNAR <- readRDS("imp_hot_deck_data_MNAR.rds")
@@ -110,7 +110,7 @@ median_jackknife_hotdeck_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_jackkn
 median_jackknife_hotdeck_MNAR
 
 #Saving .rds file
-saveRDS(median_jacknife_hotdeck_MNAR, "median_jackknife_hotdeck_MNAR.rds")
+saveRDS(median_jackknife_hotdeck_MNAR, "median_jackknife_hotdeck_MNAR.rds")
 
 #####kNN imputation#####
 
@@ -270,7 +270,7 @@ median_jackknife_rf_MNAR
 #Saving .rds file
 saveRDS(median_jackknife_rf_MNAR, "median_jackknife_rf_MNAR.rds")
 
-#####Random forest imputation#####
+#####Multiple imputation#####
 ######MCAR######
 imp_mul_data_MCAR <- readRDS("imp_mul_data_MCAR.rds")
 

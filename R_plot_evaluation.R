@@ -74,7 +74,7 @@ mape_mul_MNAR <- readRDS("mape_mul_MNAR.rds")
 mape_mul_MNAR_df <- create_dataframe_mape(mape_mul_MNAR)
 
 #Creating dataset for dumbell plot
-value_dumbbell <- list(mape_median_MCAR_df, mape_median_MAR_df, mape_median_MNAR_df,
+df_list <- list(mape_median_MCAR_df, mape_median_MAR_df, mape_median_MNAR_df,
                        mape_hotdeck_MCAR_df, mape_hotdeck_MAR_df, mape_hotdeck_MNAR_df,
                        mape_kNN_MCAR_df, mape_kNN_MAR_df, mape_kNN_MNAR_df,
                        mape_reg_MCAR_df, mape_reg_MAR_df, mape_reg_MNAR_df,
@@ -98,7 +98,7 @@ value_dumbbell <- value_dumbbell %>%
 
 #Colors
 colors <- c("#203864", #max
-                     "#C40404") #min
+            "#C40404") #min
                      
 ######Creating plot######                 
 #Plot
@@ -106,10 +106,13 @@ value_dumbbell %>%
   ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
   geom_line(aes(group = paired), color = "#000000") +
   geom_point(aes(color = value_size), size = 7, shape = 18) +
-  labs(x = "Value", y = "Mechanizm powstania braków danych i technika imputacji") +
+  labs(x = "F1-score", y = "Mechanizm powstania braków danych i metoda imputacji") +
   theme_minimal() +
-  scale_color_manual(values = colors, name = "MAPE size")+
-  theme(text = element_text(size = 20, color = "#000000"))
+  scale_x_continuous(breaks = seq(0, 100, 20)) + # Added custom X axis breaks
+  scale_color_manual(values = colors, name = "Wartość w grupie\n(mechanizm i metoda)") +
+  theme(text = element_text(size = 20, color = "#000000"),
+        axis.text = element_text(size = 25, color = "#000000"),
+        axis.title = element_text(size = 25, color = "#000000"))
 #####Household head job and Main source income######
 ######Function for extracting min and max values - Accuracy######
 create_dataframe_acc <- function(data) {
@@ -177,7 +180,7 @@ acc_mul_MNAR <- readRDS("acc_mul_MNAR.rds")
 acc_mul_MNAR_df <- create_dataframe_acc(acc_mul_MNAR)
 
 #Creating dataset for dumbell plot
-value_dumbell <- list(
+value_dumbbell <- list(
   acc_hotdeck_MCAR_df,
   acc_hotdeck_MAR_df,
   acc_hotdeck_MNAR_df,
@@ -187,14 +190,14 @@ value_dumbell <- list(
   acc_reg_MCAR_df,
   acc_reg_MAR_df,
   acc_reg_MNAR_df,
-  acc_rf_MCAR,
-  acc_rf_MAR,
-  acc_rf_MNAR,
-  acc_mul_MCAR,
-  acc_mul_MAR,
-  acc_mul_MNAR)
+  acc_rf_MCAR_df,
+  acc_rf_MAR_df,
+  acc_rf_MNAR_df,
+  acc_mul_MCAR_df,
+  acc_mul_MAR_df,
+  acc_mul_MNAR_df)
 
-value_dumbell <- do.call(rbind, value_dumbell)
+value_dumbbell <- do.call(rbind, value_dumbbell)
 
 value_dumbbell$paired <- rep(1:(30/2), each = 2)[order(rep(1:(30/2), each = 2))]
 
@@ -210,7 +213,7 @@ value_dumbbell <- value_dumbbell %>%
 
 #Colors
 colors <- c("#203864", #max
-                     "#C40404") #min
+            "#C40404") #min
                      
 ######Creating plot######               
 #Plot
@@ -218,11 +221,15 @@ value_dumbbell %>%
   ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
   geom_line(aes(group = paired), color = "#000000") +
   geom_point(aes(color = value_size), size = 7, shape = 18) +
-  labs(x = "Value", y = "Mechanizm powstania braków danych i technika imputacji") +
+  labs(x = "Accuracy", y = "Mechanizm powstania braków danych i metoda imputacji") +
   theme_minimal() +
-  scale_color_manual(values = colors, name = "acc size")+
-  theme(text = element_text(size = 20, color = "#000000"))
-#####Hpuse type roof#####
+  scale_x_continuous(breaks = seq(0, 100, 20)) + # Added custom X axis breaks
+  scale_color_manual(values = colors, name = "Wartość w grupie\n(mechanizm i metoda)") +
+  theme(text = element_text(size = 20, color = "#000000"),
+        axis.text = element_text(size = 25, color = "#000000"),
+        axis.title = element_text(size = 25, color = "#000000"))
+
+#####House type roof#####
 ######Function for extracting min and max values - F1-score######
 create_dataframe_f1 <- function(data) {
   
@@ -289,7 +296,7 @@ f1_mul_MNAR <- readRDS("f1_mul_MNAR.rds")
 f1_mul_MNAR_df <- create_dataframe_f1(f1_mul_MNAR)
 
 #Creating dataset for dumbell plot
-value_dumbell <- list(
+value_dumbbell <- list(
   f1_hotdeck_MCAR_df,
   f1_hotdeck_MAR_df,
   f1_hotdeck_MNAR_df,
@@ -299,14 +306,14 @@ value_dumbell <- list(
   f1_reg_MCAR_df,
   f1_reg_MAR_df,
   f1_reg_MNAR_df,
-  f1_rf_MCAR,
-  f1_rf_MAR,
-  f1_rf_MNAR,
-  f1_mul_MCAR,
-  f1_mul_MAR,
-  f1_mul_MNAR)
+  f1_rf_MCAR_df,
+  f1_rf_MAR_df,
+  f1_rf_MNAR_df,
+  f1_mul_MCAR_df,
+  f1_mul_MAR_df,
+  f1_mul_MNAR_df)
 
-value_dumbell <- do.call(rbind, value_dumbell)
+value_dumbbell <- do.call(rbind, value_dumbbell)
 
 value_dumbbell$paired <- rep(1:(30/2), each = 2)[order(rep(1:(30/2), each = 2))]
 
@@ -322,7 +329,7 @@ value_dumbbell <- value_dumbbell %>%
 
 #Colors
 colors <- c("#203864", #max
-                     "#C40404") #min
+            "#C40404") #min
                      
 ######Creating plot######                  
 #Plot
@@ -330,7 +337,10 @@ value_dumbbell %>%
   ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
   geom_line(aes(group = paired), color = "#000000") +
   geom_point(aes(color = value_size), size = 7, shape = 18) +
-  labs(x = "Value", y = "Mechanizm powstania braków danych i technika imputacji") +
+  labs(x = "F1-score", y = "Mechanizm powstania braków danych i metoda imputacji") +
   theme_minimal() +
-  scale_color_manual(values = colors, name = "f1 size")+
-  theme(text = element_text(size = 20, color = "#000000"))
+  scale_x_continuous(breaks = seq(0, 100, 20)) + # Added custom X axis breaks
+  scale_color_manual(values = colors, name = "Wartość w grupie\n(mechanizm i metoda)") +
+  theme(text = element_text(size = 20, color = "#000000"),
+        axis.text = element_text(size = 25, color = "#000000"),
+        axis.title = element_text(size = 25, color = "#000000"))

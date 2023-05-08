@@ -10,6 +10,16 @@ population_median <- median(data$tot_household_income)
 
 #####Median imputation#####
 
+bootstrap_median_ci <- function(data, R) {
+  set.seed(123)
+  
+  # Dodaj niewielki losowy szum do danych wejściowych
+  data_with_noise <- data + runif(length(data), min = 0.01, max = 0.99)
+  
+  boot_result <- boot(data_with_noise, function(data, indices) median(data[indices]), R = 1000)
+  return(boot_result)
+}
+
 ######MCAR######
 imp_median_data_MCAR <- readRDS("imp_median_data_MCAR.rds")
 

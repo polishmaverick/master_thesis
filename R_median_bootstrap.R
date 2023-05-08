@@ -77,7 +77,7 @@ median_bootstrap_hot_deck_MCAR <- data.frame(na_frac = seq(5, 70, 5), mean_boots
 median_bootstrap_hot_deck_MCAR
 
 #Saving .rds file
-saveRDS(median_bootstrap_hotdeck_MCAR, "median_bootstrap_hot_deck_MCAR.rds")
+saveRDS(median_bootstrap_hot_deck_MCAR, "median_bootstrap_hotdeck_MCAR.rds")
 
 ######MAR######
 imp_hot_deck_data_MAR <- readRDS("imp_hot_deck_data_MAR.rds")
@@ -94,7 +94,7 @@ median_bootstrap_hot_deck_MAR <- data.frame(na_frac = seq(5, 70, 5), mean_bootst
 median_bootstrap_hot_deck_MAR
 
 #Saving .rds file
-saveRDS(median_bootstrap_hotdeck_MAR, "median_bootstrap_hot_deck_MAR.rds")
+saveRDS(median_bootstrap_hot_deck_MAR, "median_bootstrap_hotdeck_MAR.rds")
 
 ######MNAR######
 imp_hot_deck_data_MNAR <- readRDS("imp_hot_deck_data_MNAR.rds")
@@ -111,7 +111,7 @@ median_bootstrap_hot_deck_MNAR <- data.frame(na_frac = seq(5, 70, 5), mean_boots
 median_bootstrap_hot_deck_MNAR
 
 #Saving .rds file
-saveRDS(median_bootstrap_hotdeck_MNAR, "median_bootstrap_hot_deck_MNAR.rds")
+saveRDS(median_bootstrap_hot_deck_MNAR, "median_bootstrap_hotdeck_MNAR.rds")
 
 #####kNN imputation#####
 
