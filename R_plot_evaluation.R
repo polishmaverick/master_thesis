@@ -97,22 +97,43 @@ value_dumbbell <- value_dumbbell %>%
   mutate(interval = max(value) - min(value))
 
 #Colors
-colors <- c("#203864", #max
-            "#C40404") #min
-                     
+colors <- c("#413d7b", #max
+            "#348fa7") #min
+
+new_labels <- c("MNAR hot-deck",
+                "MAR hot-deck",
+                "MNAR kNN",
+                "MAR kNN",
+                "MNAR mediana",
+                "MAR mediana",
+                "MCAR hot-deck",
+                "MCAR mediana",
+                "MNAR random forest",
+                "MAR random forest",
+                "MCAR random forest",
+                "MNAR regresyjna",
+                "MCAR kNN",
+                "MNAR wielokrotna",
+                "MAR wielokrotna",
+                "MCAR wielokrotna",
+                "MCAR regresyjna",
+                "MAR regresyjna")
+             
 ######Creating plot######                 
 #Plot
 value_dumbbell %>%
   ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
-  geom_line(aes(group = paired), color = "#000000") +
-  geom_point(aes(color = value_size), size = 7, shape = 18) +
-  labs(x = "F1-score", y = "Mechanizm powstania braków danych i metoda imputacji") +
+  geom_line(aes(group = paired), color = "#348fa7", size = 2) +
+  geom_point(aes(color = value_size), size = 10, shape = 18) +
+  labs(x = "MAPE (%)", y = "Mechanizm powstania braków\ndanych i metoda imputacji") +
   theme_minimal() +
-  scale_x_continuous(breaks = seq(0, 100, 20)) + # Added custom X axis breaks
+  scale_x_continuous(breaks = seq(0, 160, 20)) +
+  scale_y_discrete(labels = new_labels) +
   scale_color_manual(values = colors, name = "Wartość w grupie\n(mechanizm i metoda)") +
   theme(text = element_text(size = 20, color = "#000000"),
         axis.text = element_text(size = 25, color = "#000000"),
         axis.title = element_text(size = 25, color = "#000000"))
+
 #####Household head job and Main source income######
 ######Function for extracting min and max values - Accuracy######
 create_dataframe_acc <- function(data) {

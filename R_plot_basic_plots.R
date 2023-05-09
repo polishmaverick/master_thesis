@@ -1,4 +1,33 @@
-#####Plot 1#####
+#####Plot 3.1#####
+
+#Switch off scientific notation
+options(scipen = 999)
+
+#Calculating median for each region
+median_by_region <- aggregate(data$tot_household_income, by=list(data$region), median)
+median_by_region <- median_by_region[order(median_by_region$x), ]
+
+ggplot(median_by_region, aes(x = reorder(Group.1, x), y = x)) +
+  geom_bar(stat = "identity",
+           fill = "#348fa7",
+           color = "black") +
+  labs(x = "Region",
+       y = "Mediana dochodu gospodarstwa domowego",
+       title = NULL,
+       size = 5) +
+  theme(axis.text.x = element_text(angle = 90,
+                                   vjust = 0.5,
+                                   hjust = 1,
+                                   size = 26,
+                                   color = "black"),
+        axis.text.y = element_text(size = 26,
+                                   color = "black"),
+        axis.title = element_text(size = 30,
+                                  color = "black"),
+        panel.background = element_rect(fill = "white")) +
+  coord_flip()
+
+#####Plot 3.2#####
 
 #Choosing only numeric variables
 numeric_cols = c(which(names(data) == "tot_household_income"), grep("_exp", names(data)))
@@ -7,8 +36,8 @@ data_numeric <- data[, numeric_cols]
 #Calculating correlations
 correlations <- cor(data_numeric)
 
-#Defining color palette
-my_palette <- colorRampPalette(brewer.pal(9, "Blues"))(100)
+#Defining color palette with cividis and direction = -1
+my_palette <- colorRampPalette(viridis(100, option = "mako", direction = -1))(100)
 
 #Creating corrplot
 corrplot(correlations,
@@ -17,50 +46,17 @@ corrplot(correlations,
          order = "hclust",
          tl.col = "black",
          col = my_palette,
-         addCoef.col = "black",
+         addCoef.col = "white", #Change the color of the labels on the tiles to white
          cl.pos = "n",
          diag = FALSE,
-         number.cex = 0.8)
-
-#Creating data frame with correlations
-corr_df <- as.data.frame(as.table(correlations))
-corr_df <- data.frame(var1 = corr_df$Var1,
-                      var2 = corr_df$Var2,
-                      cor = corr_df$Freq)
+         number.cex = 1,
+         tl.cex = 1.3) #Increase the font size of the variable names
 
 #Sorting correlation
 corr_df <- corr_df[order(-corr_df$cor), ]
 corr_df
 
-#####Plot 2#####
-
-#Calculating median for each region
-median_by_region <- aggregate(data$tot_household_income, by=list(data$region), median)
-median_by_region <- median_by_region[order(median_by_region$x), ]
-
-ggplot(median_by_region, aes(x = reorder(Group.1, x), y = x)) +
-  geom_bar(stat = "identity",
-           fill = brewer.pal(n = 8, name = "Blues")[7],
-           color = "black") +
-  #scale_y_continuous(labels = comma) +
-  labs(x = "Region",
-       y = "Median household income",
-       title = NULL,
-       size = 5) +
-  theme(axis.text.x = element_text(angle = 90,
-                                   vjust = 0.5,
-                                   hjust = 1,
-                                   size = 24,
-                                   color = "black"),
-        axis.text.y = element_text(size = 24,
-                                   color = "black"),
-        axis.title = element_text(size = 24,
-                                  color = "black",
-                                  face = "bold"),
-        panel.background = element_rect(fill = "white")) +
-  coord_flip()
-
-#####Plot 3######
+#####Plot 3.3######
 
 #Calculating percentage share of each category
 income_counts <- table(data$main_source_income)
@@ -71,9 +67,9 @@ income_labels <- paste0(names(income_counts), "\n(", income_percentages, "%)")
 
 #Creating plot
 pie(income_counts,
-    col = brewer.pal(n = 3, name = "Blues"),
-    cex = 3,
-    labels = income_labels)
+    col = c("#37659e", "#348fa7", "#40b7ad"),
+    cex = 2.5,
+    labels = c("Działalność przedsiębiorcza\n (25%)", "Inne źródła dochodu\n(26%)", "Pensja\n (49%)"))
 
 ######Missing data plots######
 as.data.frame(data_MNAR_list$'60'[1])%>% aggr(combined = FALSE, numbers = TRUE, only.miss = TRUE)
@@ -81,7 +77,7 @@ as.data.frame(data_MNAR_list$'60'[1]) %>% select(household_head_sex, tot_househo
 as.data.frame(data_MNAR_list$'60'[1]) %>% mosaicMiss(highlight = "tot_household_income", plotvars = c("household_head_sex", "house_electricity"))
 
 #####Plot - bootstrap confidence intervals#####
-######MCAR######
+######Plot 3.7######
 m <- matrix(c(93, 92, 92, 92, 84, 88, 85, 80, 79, 75, 68, 62, 68, 61,
               95, 94, 92, 86, 84, 83, 72, 65, 65, 61, 57, 53, 40, 41,
               95, 92, 90, 83, 79, 71, 68, 70, 65, 58, 45, 49, 39, 34,
@@ -92,15 +88,15 @@ t(m) -> m
 
 colnames(m) <- c("MCAR hot-deck",
                  "MCAR kNN",
-                 "MCAR regression",
+                 "MCAR regresyjna",
                  "MCAR random forest",
-                 "MCAR multiple")
+                 "MCAR wielokrotna")
 rownames(m) <- paste(seq(5, 70, by = 5), "%")
 
 df <- melt(m)
 colnames(df) <- c("x", "y", "value")
 
-# Plot the heatmap using the viridis color palette
+#Plot the heatmap using the viridis color palette
 ggplot(df, 
        aes(x = x, 
            y = y, 
@@ -126,7 +122,7 @@ ggplot(df,
         axis.text.y = element_text(color = "black", 
                                    size = 20))
 
-######MAR######
+######Plot 3.8######
 m <- matrix(c(95, 95, 93, 86, 89, 85, 84, 83, 84, 79, 60, 63, 51, 58,
               95, 94, 92, 83, 88, 78, 74, 66, 55, 57, 56, 45, 39, 31,
               96, 95, 95, 91, 87, 92, 83, 83, 80, 74, 74, 66, 75, 76,
@@ -138,15 +134,15 @@ t(m) -> m
 
 colnames(m) <- c("MAR hot-deck",
                  "MAR kNN",
-                 "MAR regression",
+                 "MAR regresyjna",
                  "MAR random forest",
-                 "MAR multiple")
+                 "MAR wielokrotna")
 rownames(m) <- paste(seq(5, 70, by = 5), "%")
 
 df <- melt(m)
 colnames(df) <- c("x", "y", "value")
 
-# Plot the heatmap using the viridis color palette
+#Plot the heatmap using the viridis color palette
 ggplot(df, 
        aes(x = x, 
            y = y, 
@@ -172,7 +168,7 @@ ggplot(df,
         axis.text.y = element_text(color = "black", 
                                    size = 20))
 
-######MNAR######
+######Plot 3.9######
 m <- matrix(c(93, 83, 70, 56, 24, 12, 3, 0, 0, 0, 0, 0, 0, 0,
               95, 95, 91, 92, 86, 80, 80, 63, 44, 28, 16, 2, 0, 0,
               94, 87, 75, 68, 54, 39, 25, 19, 13, 3, 3, 4, 0, 0,
@@ -184,16 +180,16 @@ t(m) -> m
 
 colnames(m) <- c("MNAR hot-deck",
                  "MNAR kNN",
-                 "MNAR regression",
+                 "MNAR regresyjna",
                  "MNAR random forest",
-                 "MNAR multiple")
+                 "MNAR wielokrotna")
 rownames(m) <- paste(seq(5, 70, by = 5), "%")
 
-# Transform the matrix in long format
+#Transform the matrix in long format
 df <- melt(m)
 colnames(df) <- c("x", "y", "value")
 
-# Plot the heatmap using the viridis color palette
+#Plot the heatmap using the viridis color palette
 ggplot(df, 
        aes(x = x, 
            y = y, 

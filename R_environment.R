@@ -22,7 +22,7 @@ packages <- c(
   "perm",
   "RColorBrewer",
   "readxl",
-  "reshape2"
+  "reshape2",
   "RVAideMemoire",
   "sampling",
   "simputation",
