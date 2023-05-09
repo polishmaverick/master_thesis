@@ -22,12 +22,14 @@ packages <- c(
   "perm",
   "RColorBrewer",
   "readxl",
+  "reshape2"
   "RVAideMemoire",
   "sampling",
   "simputation",
   "sqldf",
   "tidyverse",
-  "VIM")
+  "VIM",
+  "viridis")
 
 for (package_name in packages) {
   if (!require(package_name, character.only = TRUE)) {
