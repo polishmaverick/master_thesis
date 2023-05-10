@@ -75,11 +75,11 @@ mape_mul_MNAR_df <- create_dataframe_mape(mape_mul_MNAR)
 
 #Creating dataset for dumbell plot
 df_list <- list(mape_median_MCAR_df, mape_median_MAR_df, mape_median_MNAR_df,
-                       mape_hotdeck_MCAR_df, mape_hotdeck_MAR_df, mape_hotdeck_MNAR_df,
-                       mape_kNN_MCAR_df, mape_kNN_MAR_df, mape_kNN_MNAR_df,
-                       mape_reg_MCAR_df, mape_reg_MAR_df, mape_reg_MNAR_df,
-                       mape_rf_MCAR_df, mape_rf_MAR_df, mape_rf_MNAR_df,
-                       mape_mul_MCAR_df, mape_mul_MAR_df, mape_mul_MNAR_df)
+                mape_hotdeck_MCAR_df, mape_hotdeck_MAR_df, mape_hotdeck_MNAR_df,
+                mape_kNN_MCAR_df, mape_kNN_MAR_df, mape_kNN_MNAR_df,
+                mape_reg_MCAR_df, mape_reg_MAR_df, mape_reg_MNAR_df,
+                mape_rf_MCAR_df, mape_rf_MAR_df, mape_rf_MNAR_df,
+                mape_mul_MCAR_df, mape_mul_MAR_df, mape_mul_MNAR_df)
 
 # Połącz wszystkie data.frame w jedną ramkę danych
 value_dumbbell <- do.call(rbind, df_list)
@@ -96,10 +96,11 @@ value_dumbbell <- value_dumbbell %>%
   group_by(mechanism_technique, paired) %>%
   mutate(interval = max(value) - min(value))
 
+######Creating plot######    
 #Colors
-colors <- c("#413d7b", #max
-            "#348fa7") #min
+colors <- c("#413d7b", "#348fa7")
 
+#Labels
 new_labels <- c("MNAR hot-deck",
                 "MAR hot-deck",
                 "MNAR kNN",
@@ -118,8 +119,7 @@ new_labels <- c("MNAR hot-deck",
                 "MCAR wielokrotna",
                 "MCAR regresyjna",
                 "MAR regresyjna")
-             
-######Creating plot######                 
+
 #Plot
 value_dumbbell %>%
   ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
@@ -133,8 +133,7 @@ value_dumbbell %>%
   theme(text = element_text(size = 20, color = "#000000"),
         axis.text = element_text(size = 25, color = "#000000"),
         axis.title = element_text(size = 25, color = "#000000"))
-
-#####Household head job and Main source income######
+#####Household head job######
 ######Function for extracting min and max values - Accuracy######
 create_dataframe_acc <- function(data) {
   
@@ -232,24 +231,172 @@ value_dumbbell <- value_dumbbell %>%
   group_by(mechanism_technique, paired) %>%
   mutate(interval = max(value) - min(value))
 
+######Creating plot######  
 #Colors
-colors <- c("#203864", #max
-            "#C40404") #min
-                     
-######Creating plot######               
+colors <- c("#413d7b", "#348fa7")
+
+#Labels
+new_labels <- c("MNAR hot-deck",
+                "MNAR kNN",
+                "MAR kNN",
+                "MAR hot-deck",
+                "MCAR hot-deck",
+                "MCAR kNN",
+                "MCAR wielokrotna",
+                "MAR wielokrotna",
+                "MCAR random forest",
+                "MAR random forest",
+                "MNAR wielokrotna",
+                "MCAR regresyjna",
+                "MAR regresyjna",
+                "MNAR random forest",
+                "MNAR regresyjna")
+
 #Plot
 value_dumbbell %>%
   ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
-  geom_line(aes(group = paired), color = "#000000") +
-  geom_point(aes(color = value_size), size = 7, shape = 18) +
-  labs(x = "Accuracy", y = "Mechanizm powstania braków danych i metoda imputacji") +
+  geom_line(aes(group = paired), color = "#348fa7", size = 2) +
+  geom_point(aes(color = value_size), size = 10, shape = 18) +
+  labs(x = "Accuracy", y = "Mechanizm powstania braków\ndanych i metoda imputacji") +
   theme_minimal() +
-  scale_x_continuous(breaks = seq(0, 100, 20)) + # Added custom X axis breaks
+  scale_x_continuous(breaks = seq(0, 160, 20)) +
+  scale_y_discrete(labels = new_labels) +
   scale_color_manual(values = colors, name = "Wartość w grupie\n(mechanizm i metoda)") +
   theme(text = element_text(size = 20, color = "#000000"),
         axis.text = element_text(size = 25, color = "#000000"),
         axis.title = element_text(size = 25, color = "#000000"))
+#####Main source income######
+######Function for extracting min and max values - Accuracy######
+create_dataframe_acc <- function(data) {
+  
+  min_value <- min(data$mean_acc)
+  max_value <- max(data$mean_acc)
+  
+  mechanism <- sub(".*_(.*)$", "\\1", deparse(substitute(data)))
+  method <- sub("^acc_(.*)_(.*)$", "\\1 \\2", deparse(substitute(data)))
+  mechanism_technique <- paste(mechanism, method, sep = " ")
+  mechanism_technique <- paste(strsplit(mechanism_technique, " ")[[1]][1:2], collapse = " ")
+  
+  df <- rbind(data.frame(mechanism_technique = mechanism_technique, value_size = "min", value = min_value, paired = 1),
+              data.frame(mechanism_technique = mechanism_technique, value_size = "max", value = max_value, paired = 1))
+  
+  colnames(df)[3] <- "value"
+  return(df)
+}
 
+######Preparing data######  
+#Loading and transforming acc datasets
+acc_hotdeck_MCAR <- readRDS("acc_hotdeck_MCAR.rds")
+acc_hotdeck_MCAR_df <- create_dataframe_acc(acc_hotdeck_MCAR)
+
+acc_hotdeck_MAR <- readRDS("acc_hotdeck_MAR.rds")
+acc_hotdeck_MAR_df <- create_dataframe_acc(acc_hotdeck_MAR)
+
+acc_hotdeck_MNAR <- readRDS("acc_hotdeck_MNAR.rds")
+acc_hotdeck_MNAR_df <- create_dataframe_acc(acc_hotdeck_MNAR)
+
+acc_kNN_MCAR <- readRDS("acc_kNN_MCAR.rds")
+acc_kNN_MCAR_df <- create_dataframe_acc(acc_kNN_MCAR)
+
+acc_kNN_MAR <- readRDS("acc_kNN_MAR.rds")
+acc_kNN_MAR_df <- create_dataframe_acc(acc_kNN_MAR)
+
+acc_kNN_MNAR <- readRDS("acc_kNN_MNAR.rds")
+acc_kNN_MNAR_df <- create_dataframe_acc(acc_kNN_MNAR)
+
+acc_reg_MCAR <- readRDS("acc_reg_MCAR.rds")
+acc_reg_MCAR_df <- create_dataframe_acc(acc_reg_MCAR)
+
+acc_reg_MAR <- readRDS("acc_reg_MAR.rds")
+acc_reg_MAR_df <- create_dataframe_acc(acc_reg_MAR)
+
+acc_reg_MNAR <- readRDS("acc_reg_MNAR.rds")
+acc_reg_MNAR_df <- create_dataframe_acc(acc_reg_MNAR)
+
+acc_rf_MCAR <- readRDS("acc_rf_MCAR.rds")
+acc_rf_MCAR_df <- create_dataframe_acc(acc_rf_MCAR)
+
+acc_rf_MAR <- readRDS("acc_rf_MAR.rds")
+acc_rf_MAR_df <- create_dataframe_acc(acc_rf_MAR)
+
+acc_rf_MNAR <- readRDS("acc_rf_MNAR.rds")
+acc_rf_MNAR_df <- create_dataframe_acc(acc_rf_MNAR)
+
+acc_mul_MCAR <- readRDS("acc_mul_MCAR.rds")
+acc_mul_MCAR_df <- create_dataframe_acc(acc_mul_MCAR)
+
+acc_mul_MAR <- readRDS("acc_mul_MAR.rds")
+acc_mul_MAR_df <- create_dataframe_acc(acc_mul_MAR)
+
+acc_mul_MNAR <- readRDS("acc_mul_MNAR.rds")
+acc_mul_MNAR_df <- create_dataframe_acc(acc_mul_MNAR)
+
+#Creating dataset for dumbell plot
+value_dumbbell <- list(
+  acc_hotdeck_MCAR_df,
+  acc_hotdeck_MAR_df,
+  acc_hotdeck_MNAR_df,
+  acc_kNN_MCAR_df,
+  acc_kNN_MAR_df,
+  acc_kNN_MNAR_df,
+  acc_reg_MCAR_df,
+  acc_reg_MAR_df,
+  acc_reg_MNAR_df,
+  acc_rf_MCAR_df,
+  acc_rf_MAR_df,
+  acc_rf_MNAR_df,
+  acc_mul_MCAR_df,
+  acc_mul_MAR_df,
+  acc_mul_MNAR_df)
+
+value_dumbbell <- do.call(rbind, value_dumbbell)
+
+value_dumbbell$paired <- rep(1:(30/2), each = 2)[order(rep(1:(30/2), each = 2))]
+
+#Adding variable value_max
+value_dumbbell <- value_dumbbell %>%
+  group_by(mechanism_technique, paired) %>%
+  mutate(value_max = max(value))
+
+#Adding variable interval
+value_dumbbell <- value_dumbbell %>%
+  group_by(mechanism_technique, paired) %>%
+  mutate(interval = max(value) - min(value))
+
+######Creating plot######      
+#Colors
+colors <- c("#413d7b", "#348fa7")
+
+#Labels
+new_labels <- c("MAR regresyjna",
+                "MCAR regresyjna",
+                "MNAR regresyjna",
+                "MCAR random forest",
+                "MCAR wielokrotna",
+                "MNAR wielokrotna",
+                "MAR random forest",
+                "MAR wielokrotna",
+                "MNAR random forest",
+                "MCAR kNN",
+                "MCAR hot-deck",
+                "MNAR hot-deck",
+                "MNAR kNN",
+                "MAR kNN",
+                "MAR hot-deck")
+
+#Plot
+value_dumbbell %>%
+  ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
+  geom_line(aes(group = paired), color = "#348fa7", size = 2) +
+  geom_point(aes(color = value_size), size = 10, shape = 18) +
+  labs(x = "Accuracy", y = "Mechanizm powstania braków\ndanych i metoda imputacji") +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(0, 160, 20)) +
+  scale_y_discrete(labels = new_labels) +
+  scale_color_manual(values = colors, name = "Wartość w grupie\n(mechanizm i metoda)") +
+  theme(text = element_text(size = 20, color = "#000000"),
+        axis.text = element_text(size = 25, color = "#000000"),
+        axis.title = element_text(size = 25, color = "#000000"))
 #####House type roof#####
 ######Function for extracting min and max values - F1-score######
 create_dataframe_f1 <- function(data) {
@@ -348,20 +495,37 @@ value_dumbbell <- value_dumbbell %>%
   group_by(mechanism_technique, paired) %>%
   mutate(interval = max(value) - min(value))
 
+######Creating plot######    
 #Colors
-colors <- c("#203864", #max
-            "#C40404") #min
-                     
-######Creating plot######                  
+colors <- c("#413d7b", "#348fa7")
+
+#Labels
+new_labels <- c("MNAR random forest",
+                "MAR random forest",
+                "MCAR kNN",
+                "MCAR hot-deck",
+                "MAR kNN",
+                "MAR hot-deck",
+                "MNAR kNN",
+                "MNAR hot-deck",
+                "MAR wielokrotna",
+                "MCAR wielokrotna",
+                "MCAR random forest",
+                "MAR regresyjna",
+                "MNAR wielokrotna",
+                "MCAR regresyjna",
+                "MNAR regresyjna")
+
 #Plot
 value_dumbbell %>%
   ggplot(aes(x = value, y = reorder(mechanism_technique, value_max))) +
-  geom_line(aes(group = paired), color = "#000000") +
-  geom_point(aes(color = value_size), size = 7, shape = 18) +
-  labs(x = "F1-score", y = "Mechanizm powstania braków danych i metoda imputacji") +
+  geom_line(aes(group = paired), color = "#348fa7", size = 2) +
+  geom_point(aes(color = value_size), size = 10, shape = 18) +
+  labs(x = "F1-score", y = "Mechanizm powstania braków\ndanych i metoda imputacji") +
   theme_minimal() +
-  scale_x_continuous(breaks = seq(0, 100, 20)) + # Added custom X axis breaks
+  scale_x_continuous(breaks = seq(0, 160, 20)) +
+  scale_y_discrete(labels = new_labels) +
   scale_color_manual(values = colors, name = "Wartość w grupie\n(mechanizm i metoda)") +
   theme(text = element_text(size = 20, color = "#000000"),
         axis.text = element_text(size = 25, color = "#000000"),
-        axis.title = element_text(size = 25, color = "#000000"))
+        axis.title = element_text(size = 25, color = "#000000"))                

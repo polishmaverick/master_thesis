@@ -29,7 +29,8 @@ packages <- c(
   "sqldf",
   "tidyverse",
   "VIM",
-  "viridis")
+  "viridis",
+  "writexl")
 
 for (package_name in packages) {
   if (!require(package_name, character.only = TRUE)) {
@@ -151,3 +152,23 @@ for (i in seq_along(data_samples_MAR)) {
 for (i in seq_along(data_samples_MNAR)) {
   data_samples_MNAR[[i]]$house_type_wall <- factor(data_samples_MNAR[[i]]$house_type_wall, levels = proper_order)
 }
+
+#####Importing datasets after imputation#####
+readRDS("imp_median_data_MCAR.rds") -> imp_median_data_MCAR
+readRDS("imp_median_data_MAR.rds") -> imp_median_data_MAR
+readRDS("imp_median_data_MNAR.rds") -> imp_median_data_MNAR
+readRDS("imp_hot_deck_data_MCAR.rds") -> imp_hotdeck_data_MCAR
+readRDS("imp_hot_deck_data_MAR.rds") -> imp_hotdeck_data_MAR
+readRDS("imp_hot_deck_data_MNAR.rds") -> imp_hotdeck_data_MNAR
+readRDS("imp_kNN_data_MCAR.rds") -> imp_kNN_data_MCAR
+readRDS("imp_kNN_data_MAR.rds") -> imp_kNN_data_MAR
+readRDS("imp_kNN_data_MNAR.rds") -> imp_kNN_data_MNAR
+readRDS("imp_reg_data_MCAR.rds") -> imp_reg_data_MCAR
+readRDS("imp_reg_data_MAR.rds") -> imp_reg_data_MAR
+readRDS("imp_reg_data_MNAR.rds") -> imp_reg_data_MNAR
+readRDS("imp_rf_data_MCAR.rds") -> imp_rf_data_MCAR
+readRDS("imp_rf_data_MAR.rds") -> imp_rf_data_MAR
+readRDS("imp_rf_data_MNAR.rds") -> imp_rf_data_MNAR
+readRDS("imp_mul_data_MCAR.rds") -> imp_mul_data_MCAR
+readRDS("imp_mul_data_MAR.rds") -> imp_mul_data_MAR
+readRDS("imp_mul_data_MNAR.rds") -> imp_mul_data_MNAR
