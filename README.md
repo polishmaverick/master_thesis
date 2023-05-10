@@ -1,4 +1,4 @@
-# Master's Thesis: "Methods for Data Imputation and Their Practical Implications"
+# Master's Thesis: Data imputation methods and their practical implications
 
 **Author**: Jarosław Szewczyk
 
