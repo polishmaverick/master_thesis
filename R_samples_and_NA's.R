@@ -120,3 +120,25 @@ for (p in prop) {
 
 #Saving .rds file
 #saveRDS(data_MNAR_list, "data_MNAR_list.rds")
+
+#####Reordering levels######
+#MCAR
+for (i in seq_along(data_MCAR_list)) {
+  for (j in seq_along(data_MCAR_list[[i]])) {
+    data_MCAR_list[[i]][[j]]$house_type_wall <- factor(data_MCAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
+  }
+}
+
+#MAR
+for (i in seq_along(data_MAR_list)) {
+  for (j in seq_along(data_MAR_list[[i]])) {
+    data_MAR_list[[i]][[j]]$house_type_wall <- factor(data_MAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
+  }
+}
+
+#MNAR
+for (i in seq_along(data_MNAR_list)) {
+  for (j in seq_along(data_MNAR_list[[i]])) {
+    data_MNAR_list[[i]][[j]]$house_type_wall <- factor(data_MNAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
+  }
+}

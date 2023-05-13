@@ -2,7 +2,6 @@
 
 #Installing and loading packages
 packages <- c(
-  "Amelia",
   "boot",
   "bootstrap",
   "coin",
@@ -26,7 +25,6 @@ packages <- c(
   "RVAideMemoire",
   "sampling",
   "simputation",
-  "sqldf",
   "tidyverse",
   "VIM",
   "viridis",
@@ -114,28 +112,6 @@ data_samples_MNAR <- readRDS("data_samples_MNAR.rds")
 
 #Reordering levels - var: house_type_wall
 proper_order <- c("Not applicable", "Salvaged", "Very Light", "Light", "Quite strong", "Strong")
-
-#Data list
-#MCAR
-for (i in seq_along(data_MCAR_list)) {
-  for (j in seq_along(data_MCAR_list[[i]])) {
-    data_MCAR_list[[i]][[j]]$house_type_wall <- factor(data_MCAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
-  }
-}
-
-#MAR
-for (i in seq_along(data_MAR_list)) {
-  for (j in seq_along(data_MAR_list[[i]])) {
-    data_MAR_list[[i]][[j]]$house_type_wall <- factor(data_MAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
-  }
-}
-
-#MNAR
-for (i in seq_along(data_MNAR_list)) {
-  for (j in seq_along(data_MNAR_list[[i]])) {
-    data_MNAR_list[[i]][[j]]$house_type_wall <- factor(data_MNAR_list[[i]][[j]]$house_type_wall, levels = proper_order)
-  }
-}
 
 #Data samples
 #MCAR

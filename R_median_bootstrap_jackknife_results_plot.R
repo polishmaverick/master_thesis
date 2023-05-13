@@ -20,7 +20,7 @@ readRDS("median_bootstrap_mul_MAR.rds") -> median_bootstrap_mul_MAR
 readRDS("median_bootstrap_mul_MNAR.rds") -> median_bootstrap_mul_MNAR
 
 #Combine the datasets into one
-all_data <- rbind(
+all_data_b <- rbind(
   transform(median_bootstrap_median_MCAR, method = "MCAR mediana"),
   transform(median_bootstrap_median_MAR, method = "MAR mediana"),
   transform(median_bootstrap_median_MNAR, method = "MNAR mediana"),
@@ -41,60 +41,6 @@ all_data <- rbind(
   transform(median_bootstrap_mul_MNAR, method = "MNAR wielokrotna")
 )
 
-#Rename columns
-colnames(all_data) <- c("na_frac", "Z", "method")
-median(data$tot_household_income)
-
-#Define the order of the levels
-method_order <- c("MCAR mediana", "MCAR hot-deck", "MCAR kNN", "MCAR regresyjna", "MCAR random forest", "MCAR wielokrotna",
-                  "MAR mediana", "MAR hot-deck", "MAR kNN", "MAR regresyjna", "MAR random forest", "MAR wielokrotna",
-                  "MNAR mediana", "MNAR hot-deck", "MNAR kNN", "MNAR regresyjna", "MNAR random forest", "MNAR wielokrotna")
-
-#Re-level the factor
-all_data$method <- factor(all_data$method, levels = method_order)
-
-#Convert 'method' column to factor
-all_data$method <- factor(all_data$method)
-
-#Przygotowanie danych do heatmapy - obliczenie średniej wartości Z dla każdej kombinacji na_frac i method
-heatmap_data <- all_data %>%
-  group_by(na_frac, method) %>%
-  summarise(mean_Z = mean(Z, na.rm = TRUE))
-
-#Obliczenie wartości bezwzględnych różnic między wartościami mean_Z a medianą mean_Z
-heatmap_data <- heatmap_data %>%
-  mutate(abs_diff = abs(mean_Z - median(mean_Z, na.rm = TRUE)))
-
-#Wybór 10 kafelków z wartościami najbliższymi medianie
-top_10_tiles <- heatmap_data %>%
-  arrange(abs_diff) %>%
-  head(10)
-
-heatmap_plot <- ggplot(heatmap_data, aes(x = method, y = na_frac, fill = mean_Z)) +
-  geom_tile() +
-  scale_fill_viridis(name = "Mediana dochodu\ngospodarstwa domowego", option = "mako") +
-  labs(x = "Mechanizm braków i metoda imputacji", y = "Frakcja braków danych", fill = "Mean Z") +
-  theme_minimal() +
-  theme(axis.title = element_text(size = 22, color = "black"),
-        axis.text = element_text(size = 20, color = "black"),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        legend.title = element_text(size = 22, color = "black"),
-        legend.text = element_text(size = 18, color = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
-
-heatmap_plot <- heatmap_plot +
-  scale_x_discrete(labels = function(x) {
-    x <- gsub("median", "median", x)
-    x <- gsub("regression", "regresyjna", x)
-    x <- gsub("multiple", "wielokrotna", x)
-    return(x)
-  }) +
-  scale_y_continuous(labels = function(x) paste0(x, "%"))
-
-heatmap_plot <- heatmap_plot + geom_text(data = top_10_tiles, aes(label = round(mean_Z, 0)), size = 7, color = "white")
-
-print(heatmap_plot)
 
 ######Jackknife median######
 #Read .rds files
@@ -118,7 +64,7 @@ readRDS("median_jackknife_mul_MAR.rds") -> median_jackknife_mul_MAR
 readRDS("median_jackknife_mul_MNAR.rds") -> median_jackknife_mul_MNAR
 
 #Combine the datasets into one
-all_data <- rbind(
+all_data_j <- rbind(
   transform(median_jackknife_median_MCAR, method = "MCAR mediana"),
   transform(median_jackknife_median_MAR, method = "MAR mediana"),
   transform(median_jackknife_median_MNAR, method = "MNAR mediana"),
@@ -139,57 +85,109 @@ all_data <- rbind(
   transform(median_jackknife_mul_MNAR, method = "MNAR wielokrotna")
 )
 
-#Rename columns
-colnames(all_data) <- c("na_frac", "Z", "method")
-median(data$tot_household_income)
+######Results######
+#Median bootstrap error < 5%
+all_data_b %>%
+  mutate(x = abs((mean_bootstrap_median / 164079.5) - 1) * 100) %>%
+  summarise(percentage = sum(x < 5) / n() * 100)
 
-#Define the order of the levels
-method_order <- c("MCAR mediana", "MCAR hot-deck", "MCAR kNN", "MCAR regresyjna", "MCAR random forest", "MCAR wielokrotna",
-                  "MAR mediana", "MAR hot-deck", "MAR kNN", "MAR regresyjna", "MAR random forest", "MAR wielokrotna",
-                  "MNAR mediana", "MNAR hot-deck", "MNAR kNN", "MNAR regresyjna", "MNAR random forest", "MNAR wielokrotna")
+#Median jackknife error < 5%
+all_data_j %>%
+  mutate(x = abs((mean_jackknife_median / 164079.5) - 1) * 100) %>%
+  summarise(percentage = sum(x < 5) / n() * 100)
 
-#Re-level the factor
-all_data$method <- factor(all_data$method, levels = method_order)
+#Median bootstrap error < 1%
+all_data_b %>%
+  mutate(x = abs((mean_bootstrap_median / 164079.5) - 1) * 100) %>%
+  summarise(percentage = sum(x < 5) / n() * 100)
 
-#Convert 'method' column to factor
-all_data$method <- factor(all_data$method)
+#Median jackknife error < 1%
+all_data_j %>%
+  mutate(x = abs((mean_jackknife_median / 164079.5) - 1) * 100) %>%
+  summarise(percentage = sum(x < 5) / n() * 100)
 
-#Przygotowanie danych do heatmapy - obliczenie średniej wartości Z dla każdej kombinacji na_frac i method
-heatmap_data <- all_data %>%
-  group_by(na_frac, method) %>%
-  summarise(mean_Z = mean(Z, na.rm = TRUE))
 
-#Obliczenie wartości bezwzględnych różnic między wartościami mean_Z a medianą mean_Z
-heatmap_data <- heatmap_data %>%
-  mutate(abs_diff = abs(mean_Z - median(mean_Z, na.rm = TRUE)))
+#Median in population
+p <- 164079.5
 
-#Wybór 10 kafelków z wartościami najbliższymi medianie
-top_10_tiles <- heatmap_data %>%
-  arrange(abs_diff) %>%
-  head(10)
+#Max
+round(((max(all_data_b$mean_bootstrap_median) / p) - 1) * 100, 2)
+round(((max(all_data_j$mean_jackknife_median) / p) - 1) * 100, 2)
 
-heatmap_plot <- ggplot(heatmap_data, aes(x = method, y = na_frac, fill = mean_Z)) +
-  geom_tile() +
-  scale_fill_viridis(name = "Mediana dochodu\ngospodarstwa domowego", option = "mako") +
-  labs(x = "Mechanizm braków i metoda imputacji", y = "Frakcja braków danych", fill = "Mean Z") +
-  theme_minimal() +
-  theme(axis.title = element_text(size = 22, color = "black"),
-        axis.text = element_text(size = 20, color = "black"),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        legend.title = element_text(size = 22, color = "black"),
-        legend.text = element_text(size = 18, color = "black"),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
+#Min
+round(min(abs(((all_data_b$mean_bootstrap_median) / p) - 1) * 100), 4)
+round(min(abs(((all_data_j$mean_jackknife_median) / p) - 1) * 100), 4)
 
-heatmap_plot <- heatmap_plot +
-  scale_x_discrete(labels = function(x) {
-    x <- gsub("median", "median", x)
-    x <- gsub("regression", "regresyjna", x)
-    x <- gsub("multiple", "wielokrotna", x)
-    return(x)
-  }) +
-  scale_y_continuous(labels = function(x) paste0(x, "%"))
+#Min
+round(median(abs(((all_data_b$mean_bootstrap_median) / p) - 1) * 100), 2)
+round(median(abs(((all_data_j$mean_jackknife_median) / p) - 1) * 100), 2)
 
-heatmap_plot <- heatmap_plot + geom_text(data = top_10_tiles, aes(label = round(mean_Z, 0)), size = 7, color = "white")
+all_data_b$mean_bootstrap_median
+all_data_j$mean_jackknife_median
+p
 
-print(heatmap_plot)
+# Dodaj nową kolumnę 'key' do ramki danych all_data_b
+all_data_b$key <- paste(all_data_b$na_frac, all_data_b$method, sep = " ")
+
+# Dodaj nową kolumnę 'key' do ramki danych all_data_j
+all_data_j$key <- paste(all_data_j$na_frac, all_data_j$method, sep = " ")
+
+# Połącz ramki danych na podstawie nowej kolumny 'key'
+merged_data <- merge(all_data_b, all_data_j, by = "key", all = TRUE)
+
+merged_data <- merged_data %>%
+  mutate(closest_to_p = ifelse(abs(mean_bootstrap_median - p) < abs(mean_jackknife_median - p), "b", "j"))
+
+MCAR <- merged_data %>% 
+  dplyr::select(na_frac.x, method.x, mean_bootstrap_median, mean_jackknife_median, closest_to_p) %>%
+  filter(str_detect(method.x, "^MCAR"))
+
+MAR <- merged_data %>% 
+  dplyr::select(na_frac.x, method.x, mean_bootstrap_median, mean_jackknife_median, closest_to_p) %>%
+  filter(str_detect(method.x, "^MAR"))
+
+MNAR <- merged_data %>% 
+  dplyr::select(na_frac.x, method.x, mean_bootstrap_median, mean_jackknife_median, closest_to_p) %>%
+  filter(str_detect(method.x, "^MNAR"))
+
+#Table
+table(MCAR$closest_to_p)
+table(MAR$closest_to_p)
+table(MNAR$closest_to_p)
+
+######Density plot######
+plot1 <- ggplot(all_data_b, aes(x = mean_bootstrap_median)) +
+  geom_density(aes(fill = "Bootstrap")) +
+  geom_vline(
+    aes(xintercept = p),
+    linetype = "dashed",
+    color = "black",
+    size = 1
+  ) +
+  xlab("Dochód gospodarstwa domowego") +
+  ylab("Gęstość") +
+  scale_fill_manual(values = c("Bootstrap" = "#413d7b")) +
+  labs(fill = "Metoda") +
+  theme_minimal(base_size = 25) +
+  theme(text = element_text(color = "black"))+
+  theme(axis.text = element_text(color = "black"), 
+        axis.title = element_text(color = "black"))
+
+plot2 <- ggplot(all_data_j, aes(x = mean_jackknife_median)) +
+  geom_density(aes(fill = "Jackknife")) +
+  geom_vline(
+    aes(xintercept = p),
+    linetype = "dashed",
+    color = "black",
+    size = 1
+  ) +
+  xlab("Dochód gospodarstwa domowego") +
+  ylab("Gęstość") +
+  scale_fill_manual(values = c("Jackknife" = "#348fa7")) +
+  labs(fill = "Metoda") +
+  theme_minimal(base_size = 25) +
+  theme(text = element_text(color = "black"))+
+  theme(axis.text = element_text(color = "black"), 
+        axis.title = element_text(color = "black"))
+
+grid.arrange(plot1, plot2, ncol = 1)
