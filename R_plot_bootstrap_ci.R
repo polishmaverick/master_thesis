@@ -77,7 +77,7 @@ ggplot(df,
   scale_fill_viridis(limits = c(0, 100),
                      direction = -1,
                      option = "mako", 
-                     name = "Pokrycie wartości parametru\nprzez przedział ufności\n(% przypadków)") +
+                     name = "Częstość względna objęcia\nprzez przedział ufności\nrzeczywistej wartości parametru") +
   scale_x_discrete(labels = rownames(m)) +
   labs(x = "Frakcja braków danych", 
        y = "Mechanizm powstania\nbraków i metoda imputacji") +
@@ -123,7 +123,7 @@ ggplot(df,
   scale_fill_viridis(limits = c(0, 100),
                      direction = -1,
                      option = "mako", 
-                     name = "Pokrycie wartości parametru\nprzez przedział ufności\n(% przypadków)") +
+                     name = "Częstość względna objęcia\nprzez przedział ufności\nrzeczywistej wartości parametru") +
   scale_x_discrete(labels = rownames(m)) +
   labs(x = "Frakcja braków danych", 
        y = "Mechanizm powstania\nbraków i metoda imputacji") +
@@ -170,7 +170,7 @@ ggplot(df,
   scale_fill_viridis(limits = c(0, 100),
                      direction = -1,
                      option = "mako", 
-                     name = "Pokrycie wartości parametru\nprzez przedział ufności\n(% przypadków)") +
+                     name = "Częstość względna objęcia\nprzez przedział ufności\nrzeczywistej wartości parametru") +
   scale_x_discrete(labels = rownames(m)) +
   labs(x = "Frakcja braków danych", 
        y = "Mechanizm powstania\nbraków i metoda imputacji") +
