@@ -101,7 +101,7 @@ value_dumbbell <- value_dumbbell %>%
 colors <- c("#413d7b", "#348fa7")
 
 #Labels
-new_labels <- c("MNAR hot-deck",
+new_labels <- rev(c("MNAR hot-deck",
                 "MAR hot-deck",
                 "MNAR kNN",
                 "MAR kNN",
@@ -118,7 +118,7 @@ new_labels <- c("MNAR hot-deck",
                 "MAR wielokrotna",
                 "MCAR wielokrotna",
                 "MCAR regresyjna",
-                "MAR regresyjna")
+                "MAR regresyjna"))
 
 #Plot
 value_dumbbell %>%
