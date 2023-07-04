@@ -368,21 +368,21 @@ value_dumbbell <- value_dumbbell %>%
 colors <- c("#413d7b", "#348fa7")
 
 #Labels
-new_labels <- c("MAR regresyjna",
-                "MCAR regresyjna",
-                "MNAR regresyjna",
-                "MCAR random forest",
-                "MCAR wielokrotna",
-                "MNAR wielokrotna",
-                "MAR random forest",
-                "MAR wielokrotna",
-                "MNAR random forest",
-                "MCAR kNN",
-                "MCAR hot-deck",
-                "MNAR hot-deck",
-                "MNAR kNN",
+new_labels <- c("MAR hot-deck",
                 "MAR kNN",
-                "MAR hot-deck")
+                "MNAR kNN",
+                "MNAR hot-deck",
+                "MCAR hot-deck",
+                "MCAR kNN",
+                "MNAR random forest",
+                "MAR wielokrotna",
+                "MAR random forest",
+                "MNAR wielokrotna",
+                "MCAR wielokrotna",
+                "MCAR random forest",
+                "MNAR regresyjna",
+                "MCAR regresyjna",
+                "MAR regresyjna")
 
 #Plot
 value_dumbbell %>%
@@ -397,6 +397,7 @@ value_dumbbell %>%
   theme(text = element_text(size = 20, color = "#000000"),
         axis.text = element_text(size = 25, color = "#000000"),
         axis.title = element_text(size = 25, color = "#000000"))
+
 #####House type roof#####
 ######Function for extracting min and max values - F1-score######
 create_dataframe_f1 <- function(data) {
